@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Kick Off</string>
+
+
+    <string name="register_now">New Here? Register Now!</string>
+    <string name="login_now">Already Registered? Login Now!</string>
 </resources>
