@@ -9,36 +9,48 @@
     tools:context=".AuthActivity">
 
     <LinearLayout
-        android:id="@+id/auth_header"
+        android:orientation="vertical"
         android:layout_alignParentTop="true"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:orientation="vertical">
-
-    </LinearLayout>
-    <LinearLayout
-        android:gravity="center"
-        android:layout_below="@+id/auth_header"
         android:layout_above="@+id/textView_auth_switcher"
+        android:weightSum="4"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <FrameLayout
-            android:id="@+id/fragment_container"
+        <LinearLayout
+            android:id="@+id/auth_header"
+            android:layout_alignParentTop="true"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_weight="1"
+            android:layout_height="0dp"
+            android:orientation="vertical">
+            <ImageView
+                android:src="@drawable/qwc"
+                android:padding="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+        <LinearLayout
+            android:gravity="center"
+            android:layout_weight="3"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+            <FrameLayout
+                android:id="@+id/fragment_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
     </LinearLayout>
 
     <TextView
         android:id="@+id/textView_auth_switcher"
-        android:layout_marginBottom="20dp"
-        android:text="@string/register_now"
-        android:textStyle="bold"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        android:textColor="@color/white"
-        android:padding="4dp"
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:padding="4dp"
+        android:text="@string/register_now"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
 </RelativeLayout>

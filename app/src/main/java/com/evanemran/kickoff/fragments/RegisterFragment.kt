@@ -12,20 +12,23 @@ import com.evanemran.kickoff.MainActivity
 import com.evanemran.kickoff.R
 import com.evanemran.kickoff.listeners.ResponseListener
 import com.evanemran.kickoff.manager.RequestManager
-import com.evanemran.kickoff.models.LoginRequest
-import com.evanemran.kickoff.models.LoginResponse
-import com.evanemran.kickoff.models.RegisterRequest
-import com.evanemran.kickoff.models.ResponseWrapper
+import com.evanemran.kickoff.models.*
 import kotlinx.android.synthetic.main.fragment_login.*
+import kotlinx.android.synthetic.main.fragment_login.editText_mail
+import kotlinx.android.synthetic.main.fragment_login.editText_password
+import kotlinx.android.synthetic.main.fragment_register.*
 
-class LoginFragment : Fragment() {
+class RegisterFragment : Fragment() {
+
+//    var view: View? = View(context)
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_login, container, false)
+        return inflater.inflate(R.layout.fragment_register, container, false)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -33,10 +36,10 @@ class LoginFragment : Fragment() {
 
         var manager: RequestManager = RequestManager(requireContext())
 
-        button_login.setOnClickListener {
-            var loginBody = LoginRequest(editText_mail.text.toString(), editText_password.text.toString())
-            if (loginBody.validate()){
-                manager.login(loginResponseListener, loginBody)
+        button_register.setOnClickListener {
+            var registerBody = RegisterRequest(editText_name.text.toString() ,editText_mail.text.toString(), editText_password.text.toString(), editText_confirm_password.text.toString())
+            if (registerBody.validate()){
+                manager.register(registerResponseListener, registerBody)
             }
             else{
                 Toast.makeText(context, "Invalid Inputs", Toast.LENGTH_SHORT).show()
@@ -45,8 +48,9 @@ class LoginFragment : Fragment() {
 
     }
 
-    private val loginResponseListener: ResponseListener<ResponseWrapper<LoginResponse>> = object : ResponseListener<ResponseWrapper<LoginResponse>>{
-        override fun didFetch(message: String, response: ResponseWrapper<LoginResponse>) {
+    private val registerResponseListener: ResponseListener<ResponseWrapper<RegisterResponse>> = object :
+        ResponseListener<ResponseWrapper<RegisterResponse>> {
+        override fun didFetch(message: String, response: ResponseWrapper<RegisterResponse>) {
             startActivity(Intent(context, MainActivity::class.java))
             Toast.makeText(context, response.message.toString(), Toast.LENGTH_SHORT).show()
         }
