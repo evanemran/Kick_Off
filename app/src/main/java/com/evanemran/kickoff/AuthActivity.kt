@@ -18,10 +18,12 @@ class AuthActivity : AppCompatActivity() {
         textView_auth_switcher.setOnClickListener {
             if (selectedFragment is LoginFragment) {
                 textView_auth_switcher.text = this.getString(R.string.login_now)
+                textView_header.text = this.getString(R.string.register)
                 selectedFragment = RegisterFragment()
             }
             else {
                 textView_auth_switcher.text = this.getString(R.string.register_now)
+                textView_header.text = this.getString(R.string.login)
                 selectedFragment = LoginFragment()
             }
             switchFragment(selectedFragment)

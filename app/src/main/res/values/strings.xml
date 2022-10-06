@@ -3,5 +3,10 @@
 
 
     <string name="register_now">New Here? Register Now!</string>
+    <string name="register">Register</string>
     <string name="login_now">Already Registered? Login Now!</string>
+    <string name="login">Login</string>
+
+    <string name="open_nav_drawer">Open Drawer</string>
+    <string name="close_nav_drawer">Close Drawer</string>
 </resources>

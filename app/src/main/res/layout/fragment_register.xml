@@ -89,6 +89,7 @@
         android:text="Register"
         android:textAllCaps="false"
         android:textSize="18sp"
+        app:backgroundTint="@null"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:elevation="8dp"

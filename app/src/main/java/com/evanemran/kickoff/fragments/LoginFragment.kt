@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.evanemran.kickoff.MainActivity
 import com.evanemran.kickoff.R
+import com.evanemran.kickoff.constants.SharedPrefs
 import com.evanemran.kickoff.listeners.ResponseListener
 import com.evanemran.kickoff.manager.RequestManager
 import com.evanemran.kickoff.models.LoginRequest
@@ -48,7 +49,7 @@ class LoginFragment : Fragment() {
     private val loginResponseListener: ResponseListener<ResponseWrapper<LoginResponse>> = object : ResponseListener<ResponseWrapper<LoginResponse>>{
         override fun didFetch(message: String, response: ResponseWrapper<LoginResponse>) {
             startActivity(Intent(context, MainActivity::class.java))
-            Toast.makeText(context, response.message.toString(), Toast.LENGTH_SHORT).show()
+            SharedPrefs(requireContext()).saveToken(response.data!!.token)
         }
         override fun didError(message: String) {
             Toast.makeText(context, message, Toast.LENGTH_SHORT).show()

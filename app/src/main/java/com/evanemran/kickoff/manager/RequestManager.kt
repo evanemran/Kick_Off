@@ -63,14 +63,16 @@ class RequestManager(context: Context) {
     }
 
 
-    private interface ApiInterface {
+    interface ApiInterface {
         @POST("api/v1/user")
         fun register(
+            @Body
             body: RegisterRequest
         ):Call<ResponseWrapper<RegisterResponse>>
 
         @POST("api/v1/user/login")
         fun login(
+            @Body
             body: LoginRequest
         ):Call<ResponseWrapper<LoginResponse>>
 

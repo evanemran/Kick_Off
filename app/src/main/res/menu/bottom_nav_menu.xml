@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home"
+        android:title="Home"
+        android:iconTint="@color/white"
+        android:icon="@drawable/ic_home"/>
+    <item
+        android:id="@+id/orders"
+        android:title="Teams"
+        android:iconTint="@color/white"
+        android:icon="@drawable/ic_home"/>
+    <item
+        android:id="@+id/foods"
+        android:title="Match"
+        android:iconTint="@color/white"
+        android:icon="@drawable/ic_home"/>
+    <item
+        android:id="@+id/profile"
+        android:title="Standings"
+        android:iconTint="@color/white"
+        android:icon="@drawable/ic_home"/>
+</menu>
