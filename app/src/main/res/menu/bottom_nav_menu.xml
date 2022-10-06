@@ -6,17 +6,17 @@
         android:iconTint="@color/white"
         android:icon="@drawable/ic_home"/>
     <item
-        android:id="@+id/orders"
+        android:id="@+id/teams"
         android:title="Teams"
         android:iconTint="@color/white"
         android:icon="@drawable/ic_home"/>
     <item
-        android:id="@+id/foods"
+        android:id="@+id/match"
         android:title="Match"
         android:iconTint="@color/white"
         android:icon="@drawable/ic_home"/>
     <item
-        android:id="@+id/profile"
+        android:id="@+id/stands"
         android:title="Standings"
         android:iconTint="@color/white"
         android:icon="@drawable/ic_home"/>
