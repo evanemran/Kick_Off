@@ -2,10 +2,7 @@ package com.evanemran.kickoff.manager
 
 import android.content.Context
 import com.evanemran.kickoff.listeners.ResponseListener
-import com.evanemran.kickoff.models.RegisterRequest
-import com.evanemran.kickoff.models.RegisterResponse
-import com.evanemran.kickoff.models.ResponseWrapper
-import com.evanemran.kickoff.models.TeamInfo
+import com.evanemran.kickoff.models.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,7 +21,7 @@ class RequestManager(context: Context) {
 
 
     fun register(listener: ResponseListener<ResponseWrapper<RegisterResponse>>, body: RegisterRequest) {
-        val call = retrofit.create(Register::class.java).register(body)
+        val call = retrofit.create(ApiInterface::class.java).register(body)
         call.enqueue(object : Callback<ResponseWrapper<RegisterResponse>> {
             override fun onResponse(
                 call: Call<ResponseWrapper<RegisterResponse>>,
@@ -44,8 +41,29 @@ class RequestManager(context: Context) {
         })
     }
 
+    fun login(listener: ResponseListener<ResponseWrapper<LoginResponse>>, body: LoginRequest) {
+        val call = retrofit.create(ApiInterface::class.java).login(body)
+        call.enqueue(object : Callback<ResponseWrapper<LoginResponse>> {
+            override fun onResponse(
+                call: Call<ResponseWrapper<LoginResponse>>,
+                response: Response<ResponseWrapper<LoginResponse>>
+            ) {
+                if (!response.isSuccessful){
+                    listener.didError(response.message())
+                    return
+                }
+                response.body()?.let { listener.didFetch(response.message(), it) }
+            }
 
-    private interface Register {
+            override fun onFailure(call: Call<ResponseWrapper<LoginResponse>>, t: Throwable) {
+                t.message?.let { listener.didError(it) }
+            }
+
+        })
+    }
+
+
+    private interface ApiInterface {
         @POST("api/v1/user")
         fun register(
             body: RegisterRequest
@@ -53,8 +71,8 @@ class RequestManager(context: Context) {
 
         @POST("api/v1/user/login")
         fun login(
-            body: RegisterRequest
-        ):Call<ResponseWrapper<RegisterResponse>>
+            body: LoginRequest
+        ):Call<ResponseWrapper<LoginResponse>>
 
         @GET("api/v1/team")
         fun getTeamsInfo():Call<ResponseWrapper<List<TeamInfo>>>

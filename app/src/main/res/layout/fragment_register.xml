@@ -7,6 +7,26 @@
     android:orientation="vertical"
     android:background="@android:color/transparent">
 
+
+    <EditText
+        android:id="@+id/editText_name"
+        android:inputType="textPersonName"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/rounded_layout"
+        android:hint="Name"
+        android:drawableStart="@drawable/ic_person"
+        android:drawableTint="@color/mainDeep"
+        android:drawablePadding="8dp"
+        android:textColorHint="@color/grey"
+        android:textColor="@color/mainDeep"
+        android:padding="16dp"
+        android:textSize="18sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="16dp"/>
     <EditText
         android:id="@+id/editText_mail"
         android:inputType="textEmailAddress"
@@ -45,9 +65,28 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="16dp"/>
+    <EditText
+        android:id="@+id/editText_confirm_password"
+        android:inputType="numberPassword"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/rounded_layout"
+        android:hint="Password"
+        android:drawableStart="@drawable/ic_password"
+        android:drawableTint="@color/mainDeep"
+        android:drawablePadding="8dp"
+        android:textColorHint="@color/grey"
+        android:textColor="@color/mainDeep"
+        android:padding="16dp"
+        android:textSize="18sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="16dp"/>
     <Button
-        android:id="@+id/button_login"
-        android:text="Login"
+        android:id="@+id/button_register"
+        android:text="Register"
         android:textAllCaps="false"
         android:textSize="18sp"
         android:layout_marginStart="16dp"
