@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.evanemran.kickoff.MainActivity
 import com.evanemran.kickoff.R
 import com.evanemran.kickoff.adapters.GroupsListAdapter
+import com.evanemran.kickoff.adapters.StandingListAdapter
 import com.evanemran.kickoff.adapters.TeamListAdapter
 import com.evanemran.kickoff.constants.SharedPrefs
 import com.evanemran.kickoff.listeners.ClickListener
@@ -62,8 +63,14 @@ class TeamFragment : Fragment() {
 
             recycler_groups.setHasFixedSize(true)
             recycler_groups.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            val adapter: GroupsListAdapter = GroupsListAdapter(requireContext(), response.data!!, teamClickListener)
-            recycler_groups.adapter = adapter
+            val groupAdapter: GroupsListAdapter = GroupsListAdapter(requireContext(), response.data!!, teamClickListener)
+            recycler_groups.adapter = groupAdapter
+
+            recycler_standings.setHasFixedSize(true)
+            recycler_standings.isNestedScrollingEnabled = false
+            recycler_standings.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            val standingAdapter: StandingListAdapter = StandingListAdapter(requireContext(), response.data!!, teamClickListener)
+            recycler_standings.adapter = standingAdapter
 
         }
         override fun didError(message: String) {

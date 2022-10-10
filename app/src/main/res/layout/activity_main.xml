@@ -33,10 +33,12 @@
             android:id="@+id/bottomNavBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:labelVisibilityMode="unlabeled"
+            app:itemIconSize="24dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/mainDeep"
+            android:background="@color/white"
             app:itemIconTint="@drawable/bottom_nav_style"
-            app:itemRippleColor="#4A4A4A"
+            app:itemRippleColor="@color/gTrans"
             app:itemTextColor="@drawable/bottom_nav_style"
             app:menu="@menu/bottom_nav_menu" />
     </RelativeLayout>

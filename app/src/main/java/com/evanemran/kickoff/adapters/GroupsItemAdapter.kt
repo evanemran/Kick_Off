@@ -27,6 +27,7 @@ class GroupsItemAdapter(
         val item = list[position]
 
         holder.textView_tTitle.text = item.name_en
+        holder.textView_tTitle.isSelected = true
 
         if(item.name_en.equals("Nederland")) {
             Picasso.get().load("https://countryflagsapi.com/png/NLD").into(holder.imageView_tImage)

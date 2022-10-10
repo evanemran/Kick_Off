@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/imageView_tImage"
-        android:layout_width="50dp"
-        android:layout_height="30dp"
+        android:layout_width="30dp"
+        android:layout_height="18dp"
         android:src="@mipmap/ic_launcher"
         android:scaleType="centerCrop"/>
 
@@ -17,6 +17,10 @@
         android:id="@+id/textView_tTitle"
         android:text="Name"
         android:textColor="@color/mainDeep"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:scrollHorizontally="true"
         android:textSize="14sp"
         android:textStyle="normal"
         android:padding="8dp"

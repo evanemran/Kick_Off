@@ -3,21 +3,21 @@
     <item
         android:id="@+id/home"
         android:title="Home"
-        android:iconTint="@color/white"
-        android:icon="@drawable/ic_home"/>
+        android:iconTint="@color/black"
+        android:icon="@drawable/house"/>
     <item
         android:id="@+id/teams"
         android:title="Teams"
-        android:iconTint="@color/white"
-        android:icon="@drawable/ic_home"/>
+        android:iconTint="@color/black"
+        android:icon="@drawable/trophy"/>
     <item
         android:id="@+id/match"
         android:title="Match"
-        android:iconTint="@color/white"
-        android:icon="@drawable/ic_home"/>
+        android:iconTint="@color/black"
+        android:icon="@drawable/writing"/>
     <item
         android:id="@+id/stands"
         android:title="Standings"
-        android:iconTint="@color/white"
-        android:icon="@drawable/ic_home"/>
+        android:iconTint="@color/black"
+        android:icon="@drawable/profile"/>
 </menu>

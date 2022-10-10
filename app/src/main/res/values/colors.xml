@@ -10,5 +10,6 @@
 
     <color name="mainDeep">#340112</color>
     <color name="mainLite">#8C0A31</color>
-    <color name="grey">#CD514C4F</color>
+    <color name="grey">#CD717071</color>
+    <color name="gTrans">#60CDCDCD</color>
 </resources>

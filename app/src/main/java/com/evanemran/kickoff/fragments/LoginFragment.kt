@@ -32,10 +32,10 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var manager: RequestManager = RequestManager(requireContext())
+        val manager: RequestManager = RequestManager(requireContext())
 
         button_login.setOnClickListener {
-            var loginBody = LoginRequest(editText_mail.text.toString(), editText_password.text.toString())
+            val loginBody = LoginRequest(editText_mail.text.toString(), editText_password.text.toString())
             if (loginBody.validate()){
                 manager.login(loginResponseListener, loginBody)
             }
