@@ -2,10 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/gradient_background">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_groups"
+        android:layout_margin="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:visibility="gone"
         android:id="@+id/recycler_teams"
         android:layout_margin="8dp"
         tools:listitem="@layout/list_teams"

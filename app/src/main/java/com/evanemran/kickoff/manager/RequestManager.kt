@@ -11,13 +11,13 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 
-class RequestManager(context: Context) {
+class RequestManager(var context: Context) {
     var retrofit = Retrofit.Builder()
         .baseUrl("http://api.cup2022.ir/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    var token: String = SharedPrefs(context).getToken()
+    var gToken: String = "Bearer " + SharedPrefs(context).getToken()
 
     fun register(listener: ResponseListener<ResponseWrapper<RegisterResponse>>, body: RegisterRequest) {
         val call = retrofit.create(ApiInterface::class.java).register(body)
@@ -62,7 +62,7 @@ class RequestManager(context: Context) {
     }
 
     fun getAllTeams(listener: ResponseListener<ResponseWrapper<List<TeamInfo>>>) {
-        val call = retrofit.create(ApiInterface::class.java).getAllTeamInfo()
+        val call = retrofit.create(ApiInterface::class.java).getAllTeamInfo(gToken)
         call.enqueue(object : Callback<ResponseWrapper<List<TeamInfo>>> {
             override fun onResponse(
                 call: Call<ResponseWrapper<List<TeamInfo>>>,
@@ -103,6 +103,27 @@ class RequestManager(context: Context) {
         })
     }
 
+    fun getStandings(listener: ResponseListener<ResponseWrapper<List<StandingsResponse>>>) {
+        val call = retrofit.create(ApiInterface::class.java).getGroupStandings(gToken)
+        call.enqueue(object : Callback<ResponseWrapper<List<StandingsResponse>>> {
+            override fun onResponse(
+                call: Call<ResponseWrapper<List<StandingsResponse>>>,
+                response: Response<ResponseWrapper<List<StandingsResponse>>>
+            ) {
+                if (!response.isSuccessful){
+                    listener.didError(response.message())
+                    return
+                }
+                response.body()?.let { listener.didFetch(response.message(), it) }
+            }
+
+            override fun onFailure(call: Call<ResponseWrapper<List<StandingsResponse>>>, t: Throwable) {
+                t.message?.let { listener.didError(it) }
+            }
+
+        })
+    }
+
 
     interface ApiInterface {
 //        var token: S
@@ -119,11 +140,8 @@ class RequestManager(context: Context) {
         ):Call<ResponseWrapper<LoginResponse>>
 
         @GET("api/v1/team")
-        @Headers(
-            "Authorization: Bearer " + "",
-            "Content-Type: application/json",
-        )
         fun getAllTeamInfo(
+            @Header("Authorization") token: String
         ):Call<ResponseWrapper<List<TeamInfo>>>
 
         @GET("api/v1/team/{id}")
@@ -134,6 +152,11 @@ class RequestManager(context: Context) {
         @GET("api/v1/match")
         fun getAllMatchInfo(
         ):Call<ResponseWrapper<TeamInfo>>
+
+        @GET("api/v1/standings")
+        fun getGroupStandings(
+            @Header("Authorization") token: String
+        ):Call<ResponseWrapper<List<StandingsResponse>>>
     }
 
 }
