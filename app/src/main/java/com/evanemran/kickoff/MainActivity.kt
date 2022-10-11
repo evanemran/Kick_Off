@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.fragment.app.Fragment
+import com.evanemran.kickoff.fragments.MatchFragment
 import com.evanemran.kickoff.fragments.TeamFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -27,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         BottomNavigationView.OnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home -> replaceFragment(TeamFragment())
-                R.id.teams -> replaceFragment(TeamFragment())
+                R.id.teams -> replaceFragment(MatchFragment())
                 R.id.match -> replaceFragment(TeamFragment())
                 R.id.stands -> replaceFragment(TeamFragment())
             }

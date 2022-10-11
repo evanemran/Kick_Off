@@ -124,6 +124,27 @@ class RequestManager(var context: Context) {
         })
     }
 
+    fun getAllMatches(listener: ResponseListener<ResponseWrapper<List<MatchData>>>) {
+        val call = retrofit.create(ApiInterface::class.java).getAllMatchInfo(gToken)
+        call.enqueue(object : Callback<ResponseWrapper<List<MatchData>>> {
+            override fun onResponse(
+                call: Call<ResponseWrapper<List<MatchData>>>,
+                response: Response<ResponseWrapper<List<MatchData>>>
+            ) {
+                if (!response.isSuccessful){
+                    listener.didError(response.message())
+                    return
+                }
+                response.body()?.let { listener.didFetch(response.message(), it) }
+            }
+
+            override fun onFailure(call: Call<ResponseWrapper<List<MatchData>>>, t: Throwable) {
+                t.message?.let { listener.didError(it) }
+            }
+
+        })
+    }
+
 
     interface ApiInterface {
 //        var token: S
@@ -151,7 +172,8 @@ class RequestManager(var context: Context) {
 
         @GET("api/v1/match")
         fun getAllMatchInfo(
-        ):Call<ResponseWrapper<TeamInfo>>
+            @Header("Authorization") token: String
+        ):Call<ResponseWrapper<List<MatchData>>>
 
         @GET("api/v1/standings")
         fun getGroupStandings(

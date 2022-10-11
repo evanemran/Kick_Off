@@ -3,29 +3,32 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android_Projects/KickOff/app/src/main/res/drawable-v24/rounded_layout.xml" value="0.1" />
+        <entry key="..\:/Android_Projects/KickOff/app/src/main/res/drawable-v24/rounded_layout_trans.xml" value="0.1415" />
+        <entry key="..\:/Android_Projects/KickOff/app/src/main/res/drawable-v24/rounded_sides.xml" value="0.1" />
+        <entry key="..\:/Android_Projects/KickOff/app/src/main/res/drawable/bottom_nav_style.xml" value="0.1" />
         <entry key="..\:/Android_Projects/KickOff/app/src/main/res/drawable/gradient_background.xml" value="0.1" />
+        <entry key="..\:/Android_Projects/KickOff/app/src/main/res/drawable/rounded_button_black.xml" value="0.1" />
+        <entry key="..\:/Android_Projects/KickOff/app/src/main/res/drawable/tab_indicator.xml" value="0.1415" />
         <entry key="..\:/Android_Projects/KickOff/app/src/main/res/layout/activity_auth.xml" value="0.1921875" />
         <entry key="..\:/Android_Projects/KickOff/app/src/main/res/layout/activity_main.xml" value="0.1921875" />
+        <entry key="..\:/Android_Projects/KickOff/app/src/main/res/layout/activity_match_detail.xml" value="0.1921875" />
+        <entry key="..\:/Android_Projects/KickOff/app/src/main/res/layout/activity_splash.xml" value="0.1921875" />
+        <entry key="..\:/Android_Projects/KickOff/app/src/main/res/layout/fragment_lineup.xml" value="0.1921875" />
         <entry key="..\:/Android_Projects/KickOff/app/src/main/res/layout/fragment_login.xml" value="0.19114583333333332" />
-        <entry key="..\:/Flutter_Projects/Kick_Off/app/src/main/res/drawable-v24/rounded_button.xml" value="0.1985" />
-        <entry key="..\:/Flutter_Projects/Kick_Off/app/src/main/res/drawable-v24/rounded_button_secondary.xml" value="0.1985" />
-        <entry key="..\:/Flutter_Projects/Kick_Off/app/src/main/res/drawable-v24/rounded_layout.xml" value="0.1985" />
-        <entry key="..\:/Flutter_Projects/Kick_Off/app/src/main/res/drawable-v24/rounded_sides.xml" value="0.1985" />
-        <entry key="..\:/Flutter_Projects/Kick_Off/app/src/main/res/drawable/bottom_nav_style.xml" value="0.1985" />
-        <entry key="..\:/Flutter_Projects/Kick_Off/app/src/main/res/drawable/gradient_background.xml" value="0.1985" />
-        <entry key="..\:/Flutter_Projects/Kick_Off/app/src/main/res/drawable/rounded_button_black.xml" value="0.1985" />
-        <entry key="..\:/Flutter_Projects/Kick_Off/app/src/main/res/layout/activity_auth.xml" value="0.30416666666666664" />
-        <entry key="..\:/Flutter_Projects/Kick_Off/app/src/main/res/layout/activity_main.xml" value="0.2968988307066599" />
-        <entry key="..\:/Flutter_Projects/Kick_Off/app/src/main/res/layout/activity_splash.xml" value="0.30416666666666664" />
-        <entry key="..\:/Flutter_Projects/Kick_Off/app/src/main/res/layout/fragment_login.xml" value="0.30416666666666664" />
-        <entry key="..\:/Flutter_Projects/Kick_Off/app/src/main/res/layout/fragment_register.xml" value="0.30416666666666664" />
-        <entry key="..\:/Flutter_Projects/Kick_Off/app/src/main/res/layout/fragment_team.xml" value="0.30416666666666664" />
-        <entry key="..\:/Flutter_Projects/Kick_Off/app/src/main/res/layout/list_group.xml" value="0.30416666666666664" />
-        <entry key="..\:/Flutter_Projects/Kick_Off/app/src/main/res/layout/list_group_item.xml" value="0.30416666666666664" />
-        <entry key="..\:/Flutter_Projects/Kick_Off/app/src/main/res/layout/list_standings.xml" value="0.3020833333333333" />
-        <entry key="..\:/Flutter_Projects/Kick_Off/app/src/main/res/layout/list_standings_item.xml" value="0.30416666666666664" />
-        <entry key="..\:/Flutter_Projects/Kick_Off/app/src/main/res/layout/nav_header.xml" value="0.30416666666666664" />
-        <entry key="..\:/Flutter_Projects/Kick_Off/app/src/main/res/menu/bottom_nav_menu.xml" value="0.30416666666666664" />
+        <entry key="..\:/Android_Projects/KickOff/app/src/main/res/layout/fragment_match.xml" value="0.1921875" />
+        <entry key="..\:/Android_Projects/KickOff/app/src/main/res/layout/fragment_register.xml" value="0.1921875" />
+        <entry key="..\:/Android_Projects/KickOff/app/src/main/res/layout/fragment_states.xml" value="0.19114583333333332" />
+        <entry key="..\:/Android_Projects/KickOff/app/src/main/res/layout/fragment_team.xml" value="0.1921875" />
+        <entry key="..\:/Android_Projects/KickOff/app/src/main/res/layout/fragment_timeline.xml" value="0.1921875" />
+        <entry key="..\:/Android_Projects/KickOff/app/src/main/res/layout/list_group.xml" value="0.19114583333333332" />
+        <entry key="..\:/Android_Projects/KickOff/app/src/main/res/layout/list_group_item.xml" value="0.1921875" />
+        <entry key="..\:/Android_Projects/KickOff/app/src/main/res/layout/list_matches.xml" value="0.19114583333333332" />
+        <entry key="..\:/Android_Projects/KickOff/app/src/main/res/layout/list_standings.xml" value="0.1921875" />
+        <entry key="..\:/Android_Projects/KickOff/app/src/main/res/layout/list_standings_item.xml" value="0.1921875" />
+        <entry key="..\:/Android_Projects/KickOff/app/src/main/res/layout/list_teams.xml" value="0.1921875" />
+        <entry key="..\:/Android_Projects/KickOff/app/src/main/res/layout/nav_header.xml" value="0.1921875" />
+        <entry key="..\:/Android_Projects/KickOff/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1921875" />
       </map>
     </option>
   </component>

@@ -1,0 +1,25 @@
+package com.evanemran.kickoff.models
+
+class MatchData {
+    var id: String = ""
+    var type: String = ""
+    var group: String = ""
+    var home_team_id: String = ""
+    var away_team_id: String = ""
+    var home_score: String = ""
+    var away_score: String = ""
+    var home_scorers: String = ""
+    var away_scorers: String = ""
+    var persian_date: String = ""
+    var local_date: String = ""
+    var stadium_id: String = ""
+    var time_elapsed: String = ""
+    var finished: String = ""
+    var matchday: String = ""
+    var home_team_fa: String = ""
+    var away_team_fa: String = ""
+    var home_team_en: String = ""
+    var away_team_en: String = ""
+    var home_flag: String = ""
+    var away_flag: String = ""
+}
