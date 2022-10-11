@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
+    android:layout_marginStart="4dp"
+    android:layout_marginTop="2dp"
+    android:layout_marginBottom="2dp"
     android:gravity="center"
     android:orientation="horizontal">
 
@@ -16,12 +18,13 @@
     <TextView
         android:id="@+id/textView_tTitle"
         android:text="Name"
+        android:fontFamily="@font/qwc"
         android:textColor="@color/mainDeep"
         android:singleLine="true"
         android:ellipsize="marquee"
         android:marqueeRepeatLimit="marquee_forever"
         android:scrollHorizontally="true"
-        android:textSize="14sp"
+        android:textSize="12sp"
         android:textStyle="normal"
         android:padding="8dp"
         android:layout_width="match_parent"

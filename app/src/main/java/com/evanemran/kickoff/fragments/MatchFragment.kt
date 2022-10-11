@@ -7,25 +7,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.evanemran.kickoff.MainActivity
 import com.evanemran.kickoff.MatchDetailActivity
 import com.evanemran.kickoff.R
 import com.evanemran.kickoff.adapters.GroupsListAdapter
 import com.evanemran.kickoff.adapters.MatchListAdapter
-import com.evanemran.kickoff.adapters.StandingListAdapter
-import com.evanemran.kickoff.adapters.TeamListAdapter
-import com.evanemran.kickoff.constants.SharedPrefs
 import com.evanemran.kickoff.listeners.ClickListener
 import com.evanemran.kickoff.listeners.ResponseListener
 import com.evanemran.kickoff.manager.FlyManager
 import com.evanemran.kickoff.manager.RequestManager
 import com.evanemran.kickoff.models.*
+import com.github.ybq.android.spinkit.sprite.Sprite
+import com.github.ybq.android.spinkit.style.Circle
+import com.github.ybq.android.spinkit.style.DoubleBounce
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_match.*
 import kotlinx.android.synthetic.main.fragment_team.*
 import kotlinx.android.synthetic.main.fragment_team.recycler_groups
+
 
 class MatchFragment : Fragment() {
 
@@ -43,6 +42,9 @@ class MatchFragment : Fragment() {
         val manager: RequestManager = RequestManager(requireContext())
         val flyManager: FlyManager = FlyManager(requireContext())
 
+        val animation: Sprite = Circle()
+        spin_kit_match.setIndeterminateDrawable(animation)
+
 //        manager.getAllMatches(allMatchesResponseListener)
         manager.getStandings(groupStandingsListener)
         flyManager.getAllMatches(allMatchesResponseListener)
@@ -51,12 +53,15 @@ class MatchFragment : Fragment() {
 
     private val allMatchesResponseListener: ResponseListener<List<MatchDataFly>> = object : ResponseListener<List<MatchDataFly>>{
         override fun didFetch(message: String, response: List<MatchDataFly>) {
-            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+//            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
 
             recycler_matches.setHasFixedSize(true)
             recycler_matches.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             val adapter: MatchListAdapter = MatchListAdapter(requireContext(), response, matchClickListener)
             recycler_matches.adapter = adapter
+
+            spin_kit_match.visibility = View.GONE
+            scrollView.visibility = View.VISIBLE
 
         }
         override fun didError(message: String) {
@@ -66,7 +71,7 @@ class MatchFragment : Fragment() {
 
     private val groupStandingsListener: ResponseListener<ResponseWrapper<List<StandingsResponse>>> = object : ResponseListener<ResponseWrapper<List<StandingsResponse>>>{
         override fun didFetch(message: String, response: ResponseWrapper<List<StandingsResponse>>) {
-            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+//            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
 
             recycler_groups.setHasFixedSize(true)
             recycler_groups.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)

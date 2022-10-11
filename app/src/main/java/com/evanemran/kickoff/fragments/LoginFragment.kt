@@ -48,8 +48,10 @@ class LoginFragment : Fragment() {
 
     private val loginResponseListener: ResponseListener<ResponseWrapper<LoginResponse>> = object : ResponseListener<ResponseWrapper<LoginResponse>>{
         override fun didFetch(message: String, response: ResponseWrapper<LoginResponse>) {
-            startActivity(Intent(context, MainActivity::class.java))
+            startActivity(Intent(context, MainActivity::class.java)
+                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
             SharedPrefs(requireContext()).saveToken(response.data!!.token)
+            requireActivity().finish()
         }
         override fun didError(message: String) {
             Toast.makeText(context, message, Toast.LENGTH_SHORT).show()

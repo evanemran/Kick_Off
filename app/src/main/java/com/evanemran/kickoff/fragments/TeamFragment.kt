@@ -19,8 +19,13 @@ import com.evanemran.kickoff.listeners.ClickListener
 import com.evanemran.kickoff.listeners.ResponseListener
 import com.evanemran.kickoff.manager.RequestManager
 import com.evanemran.kickoff.models.*
+import com.github.ybq.android.spinkit.sprite.Sprite
+import com.github.ybq.android.spinkit.style.Circle
 import kotlinx.android.synthetic.main.fragment_login.*
+import kotlinx.android.synthetic.main.fragment_match.*
 import kotlinx.android.synthetic.main.fragment_team.*
+import kotlinx.android.synthetic.main.fragment_team.recycler_groups
+import kotlinx.android.synthetic.main.fragment_team.recycler_teams
 
 class TeamFragment : Fragment() {
 
@@ -36,6 +41,9 @@ class TeamFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val manager: RequestManager = RequestManager(requireContext())
+
+        val animation: Sprite = Circle()
+        spin_kit_teams.setIndeterminateDrawable(animation)
 
 //        manager.getAllTeams(allTeamsResponseListener)
         manager.getStandings(groupStandingsListener)
@@ -59,7 +67,7 @@ class TeamFragment : Fragment() {
 
     private val groupStandingsListener: ResponseListener<ResponseWrapper<List<StandingsResponse>>> = object : ResponseListener<ResponseWrapper<List<StandingsResponse>>>{
         override fun didFetch(message: String, response: ResponseWrapper<List<StandingsResponse>>) {
-            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+//            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
 
             recycler_groups.setHasFixedSize(true)
             recycler_groups.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -71,6 +79,9 @@ class TeamFragment : Fragment() {
             recycler_standings.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             val standingAdapter: StandingListAdapter = StandingListAdapter(requireContext(), response.data!!, teamClickListener)
             recycler_standings.adapter = standingAdapter
+
+            spin_kit_teams.visibility = View.GONE
+            scrollView_teams.visibility = View.VISIBLE
 
         }
         override fun didError(message: String) {

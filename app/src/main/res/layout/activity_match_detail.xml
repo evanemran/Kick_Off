@@ -20,7 +20,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
             android:gravity="center"
             android:orientation="horizontal">
             <LinearLayout
@@ -45,6 +48,7 @@
                 <TextView
                     android:id="@+id/textView_homeName"
                     android:text="Home"
+                    android:fontFamily="@font/qwc"
                     android:textAlignment="textEnd"
                     android:textColor="@color/white"
                     android:textSize="16sp"
@@ -61,6 +65,7 @@
                 <TextView
                     android:id="@+id/match_score"
                     android:text="1 : 0"
+                    android:fontFamily="@font/qwc"
                     android:textSize="28sp"
                     android:textColor="@color/white"
                     android:textAlignment="center"
@@ -70,6 +75,7 @@
                 <TextView
                     android:id="@+id/match_time"
                     android:text="63'"
+                    android:fontFamily="@font/qwc"
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"
                     android:background="@drawable/rounded_layout_trans"
@@ -103,6 +109,7 @@
                 <TextView
                     android:id="@+id/textView_awayName"
                     android:text="Away"
+                    android:fontFamily="@font/qwc"
                     android:textAlignment="textEnd"
                     android:textColor="@color/white"
                     android:textSize="16sp"
@@ -125,6 +132,7 @@
             app:tabMode="fixed"
             android:background="@android:color/transparent"
             app:tabGravity="center"
+            android:fontFamily="@font/qwc"
             app:tabIndicatorGravity="stretch"
             app:tabTextAppearance="@style/tab_text"
             app:tabSelectedTextColor="@color/white"

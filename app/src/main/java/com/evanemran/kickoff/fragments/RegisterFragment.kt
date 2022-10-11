@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.evanemran.kickoff.MainActivity
 import com.evanemran.kickoff.R
+import com.evanemran.kickoff.constants.SharedPrefs
 import com.evanemran.kickoff.listeners.ResponseListener
 import com.evanemran.kickoff.manager.RequestManager
 import com.evanemran.kickoff.models.*
@@ -52,6 +53,9 @@ class RegisterFragment : Fragment() {
         ResponseListener<ResponseWrapper<RegisterResponse>> {
         override fun didFetch(message: String, response: ResponseWrapper<RegisterResponse>) {
             startActivity(Intent(context, MainActivity::class.java))
+            SharedPrefs(requireContext()).saveToken(response.data!!.token)
+            SharedPrefs(requireContext()).saveName(editText_name.text.toString())
+            requireActivity().finish()
             Toast.makeText(context, response.message.toString(), Toast.LENGTH_SHORT).show()
         }
         override fun didError(message: String) {

@@ -23,16 +23,16 @@ class MatchListAdapter(
 ) : RecyclerView.Adapter<MatchListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchListViewHolder {
-        return MatchListViewHolder(LayoutInflater.from(context).inflate(R.layout.list_matches, parent, false))
+        return MatchListViewHolder(LayoutInflater.from(context).inflate(R.layout.list_matches_two, parent, false))
     }
 
     override fun onBindViewHolder(holder: MatchListViewHolder, position: Int) {
         val item = list[position]
 
-        holder.textView_homeName.text = item.home_team?.country
-        holder.textView_awayName.text = item.away_team?.country
+        holder.textView_homeName.text = item.home_team?.name
+        holder.textView_awayName.text = item.away_team?.name
 
-        val dateFormatter = SimpleDateFormat("d MMM")
+        val dateFormatter = SimpleDateFormat("EEE, d MMM")
         val timeFormatter = SimpleDateFormat("hh:mm a")
         val date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(item.datetime)
 

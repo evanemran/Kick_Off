@@ -4,7 +4,7 @@
         android:id="@+id/home"
         android:title="Home"
         android:iconTint="@color/black"
-        android:icon="@drawable/house"/>
+        android:icon="@drawable/ic_goal"/>
     <item
         android:id="@+id/teams"
         android:title="Teams"
