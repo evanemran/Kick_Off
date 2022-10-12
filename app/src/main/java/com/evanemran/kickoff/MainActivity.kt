@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.evanemran.kickoff.adapters.DrawerAdapter
 import com.evanemran.kickoff.constants.SharedPrefs
+import com.evanemran.kickoff.fragments.HistoryFragment
 import com.evanemran.kickoff.fragments.MatchFragment
 import com.evanemran.kickoff.fragments.TeamFragment
 import com.evanemran.kickoff.listeners.ClickListener
@@ -17,6 +18,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
+    var selectedFragment: Fragment = MatchFragment()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -29,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
         setupNavMenu()
 
-        replaceFragment(MatchFragment())
+        replaceFragment(selectedFragment)
         bottomNavBar.setOnNavigationItemSelectedListener(bottomMenuListener)
     }
 
@@ -53,8 +57,18 @@ class MainActivity : AppCompatActivity() {
     private val bottomMenuListener =
         BottomNavigationView.OnNavigationItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.home -> replaceFragment(MatchFragment())
-                R.id.teams -> replaceFragment(TeamFragment())
+                R.id.home -> {
+                    if (selectedFragment !is MatchFragment){
+                        selectedFragment = MatchFragment()
+                        replaceFragment(MatchFragment())
+                    }
+                }
+                R.id.teams -> {
+                    if (selectedFragment !is TeamFragment){
+                        selectedFragment = TeamFragment()
+                        replaceFragment(TeamFragment())
+                    }
+                }
                 R.id.match -> replaceFragment(TeamFragment())
                 R.id.stands -> replaceFragment(TeamFragment())
             }
@@ -72,7 +86,9 @@ class MainActivity : AppCompatActivity() {
         override fun onClicked(data: DrawerMenu) {
             when (data) {
                 DrawerMenu.STATS -> Toast.makeText(this@MainActivity, "Will be added soon!", Toast.LENGTH_SHORT).show()
-                DrawerMenu.HISTORY -> Toast.makeText(this@MainActivity, "Will be added soon!", Toast.LENGTH_SHORT).show()
+                DrawerMenu.HISTORY -> {
+                    replaceFragment(HistoryFragment())
+                }
                 DrawerMenu.BLOGS -> Toast.makeText(this@MainActivity, "Will be added soon!", Toast.LENGTH_SHORT).show()
                 DrawerMenu.HELP_CENTER -> Toast.makeText(this@MainActivity, "Will be added soon!", Toast.LENGTH_SHORT).show()
                 DrawerMenu.SETTINGS -> Toast.makeText(this@MainActivity, "Will be added soon!", Toast.LENGTH_SHORT).show()
