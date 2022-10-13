@@ -13,11 +13,12 @@ import com.evanemran.kickoff.listeners.ClickListener
 import com.evanemran.kickoff.models.TeamInfo
 import com.evanemran.kickoff.models.TeamPoints
 import com.evanemran.kickoff.models.WinnerData
+import com.evanemran.kickoff.models.WinnerDetails
 import com.squareup.picasso.Picasso
 
 class WinnerListAdapter(
     val context: Context,
-    val list: List<WinnerData>,
+    val list: List<WinnerDetails>,
 ) : RecyclerView.Adapter<WinnerListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WinnerListViewHolder {
@@ -31,7 +32,7 @@ class WinnerListAdapter(
         holder.textView_year.text = item.Year.toString()
         holder.textView_host.text = item.Country
         holder.textView_1st.text = item.Winner
-        holder.textView_2nd.text = item.Second_place
+        holder.textView_2nd.text = item.RunnersUp
         holder.textView_3rd.text = item.Third
         holder.textView_4th.text = item.Fourth
 
@@ -42,7 +43,7 @@ class WinnerListAdapter(
         holder.textView_host.isSelected = true
 
         Picasso.get().load("https://countryflagsapi.com/png/" + item.Winner).into(holder.imageView_1)
-        Picasso.get().load("https://countryflagsapi.com/png/" + item.Second_place).into(holder.imageView_2)
+        Picasso.get().load("https://countryflagsapi.com/png/" + item.RunnersUp).into(holder.imageView_2)
         Picasso.get().load("https://countryflagsapi.com/png/" + item.Third).into(holder.imageView_3)
         Picasso.get().load("https://countryflagsapi.com/png/" + item.Fourth).into(holder.imageView_4)
     }

@@ -31,6 +31,9 @@ import kotlinx.android.synthetic.main.fragment_match.*
 import kotlinx.android.synthetic.main.fragment_team.*
 import kotlinx.android.synthetic.main.fragment_team.recycler_groups
 import kotlinx.android.synthetic.main.fragment_team.recycler_teams
+import kotlinx.android.synthetic.main.fragment_winner.*
+
+var winnerDetails : List<WinnerDetails> = listOf()
 
 class HistoryFragment : Fragment() {
 
@@ -47,10 +50,10 @@ class HistoryFragment : Fragment() {
 
         val manager: BlobManager = BlobManager(requireContext())
 
-//        manager.getAllTeams(allTeamsResponseListener)
-//        manager.getAllWinners(allWinnersListener)
+        val animation: Sprite = Circle()
+        spin_kit_history.setIndeterminateDrawable(animation)
 
-        setupHistoryMenu()
+        manager.getDetails(winnerDetailsListener)
 
     }
 
@@ -70,44 +73,24 @@ class HistoryFragment : Fragment() {
         recycler_history.adapter = adapter
     }
 
-//    private val allTeamsResponseListener: ResponseListener<ResponseWrapper<List<TeamInfo>>> = object : ResponseListener<ResponseWrapper<List<TeamInfo>>>{
-//        override fun didFetch(message: String, response: ResponseWrapper<List<TeamInfo>>) {
-//            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-//
-//            recycler_teams.setHasFixedSize(true)
-//            recycler_teams.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-//            val adapter: TeamListAdapter = TeamListAdapter(requireContext(), response.data!!, teamClickListener)
-//            recycler_teams.adapter = adapter
-//
-//        }
-//        override fun didError(message: String) {
-//            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-//        }
-//    }
-
-//    private val allWinnersListener: ResponseListener<List<StandingsResponse>> = object : ResponseListener<List<StandingsResponse>>{
-//        override fun didFetch(message: String, response: List<StandingsResponse>) {
-////            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-//
-//            recycler_history.setHasFixedSize(true)
-//            recycler_history.isNestedScrollingEnabled = false
-//            recycler_history.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-//            val standingAdapter: StandingListAdapter = StandingListAdapter(requireContext(), response, teamClickListener)
-//            recycler_history.adapter = standingAdapter
-//
-//            spin_kit_teams.visibility = View.GONE
-//            scrollView_teams.visibility = View.VISIBLE
-//
-//        }
-//        override fun didError(message: String) {
-//            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-//        }
-//    }
-
     private val historyClickListener: ClickListener<HistoryMenu> = object : ClickListener<HistoryMenu> {
         override fun onClicked(data: HistoryMenu) {
             startActivity(Intent(requireContext(), HistoryDetailsActivity::class.java)
                 .putExtra("history", data))
+        }
+    }
+
+    private val winnerDetailsListener: ResponseListener<List<WinnerDetails>> = object : ResponseListener<List<WinnerDetails>> {
+        override fun didFetch(message: String, response: List<WinnerDetails>) {
+            winnerDetails = response
+            setupHistoryMenu()
+            spin_kit_history.visibility = View.GONE
+            recycler_history.visibility = View.VISIBLE
+        }
+
+        override fun didError(message: String) {
+            spin_kit_history.visibility = View.GONE
+            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
         }
     }
 }

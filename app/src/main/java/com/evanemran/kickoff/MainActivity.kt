@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.evanemran.kickoff.adapters.DrawerAdapter
 import com.evanemran.kickoff.constants.SharedPrefs
+import com.evanemran.kickoff.fragments.BlogFragment
 import com.evanemran.kickoff.fragments.HistoryFragment
 import com.evanemran.kickoff.fragments.MatchFragment
 import com.evanemran.kickoff.fragments.TeamFragment
@@ -93,7 +94,12 @@ class MainActivity : AppCompatActivity() {
                         replaceFragment(HistoryFragment())
                     }
                 }
-                DrawerMenu.BLOGS -> Toast.makeText(this@MainActivity, "Will be added soon!", Toast.LENGTH_SHORT).show()
+                DrawerMenu.BLOGS -> {
+                    if (selectedFragment !is BlogFragment){
+                        selectedFragment = BlogFragment()
+                        replaceFragment(BlogFragment())
+                    }
+                }
                 DrawerMenu.HELP_CENTER -> Toast.makeText(this@MainActivity, "Will be added soon!", Toast.LENGTH_SHORT).show()
                 DrawerMenu.SETTINGS -> Toast.makeText(this@MainActivity, "Will be added soon!", Toast.LENGTH_SHORT).show()
                 DrawerMenu.TERMS -> Toast.makeText(this@MainActivity, "Will be added soon!", Toast.LENGTH_SHORT).show()

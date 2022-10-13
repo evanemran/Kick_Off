@@ -5,7 +5,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white">
 
+    <com.github.ybq.android.spinkit.SpinKitView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/spin_kit_winner"
+        style="@style/SpinKitView.Large.Circle"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:SpinKit_Color="@color/mainLite" />
+
     <androidx.recyclerview.widget.RecyclerView
+        android:visibility="gone"
         android:id="@+id/recycler_winners"
         android:layout_width="match_parent"
         tools:listitem="@layout/list_history"

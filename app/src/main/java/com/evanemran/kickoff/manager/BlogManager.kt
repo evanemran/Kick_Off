@@ -1,6 +1,7 @@
 package com.evanemran.kickoff.manager
 
 import android.content.Context
+import com.evanemran.kickoff.R
 import com.evanemran.kickoff.listeners.ResponseListener
 import com.evanemran.kickoff.models.*
 import retrofit2.Call
@@ -8,23 +9,21 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
-class BlobManager(var context: Context) {
+class BlogManager(var context: Context) {
     var retrofit = Retrofit.Builder()
-        .baseUrl("https://jsonblob.com/")
+        .baseUrl("https://newsapi.org/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    fun getDetails(listener: ResponseListener<List<WinnerDetails>>) {
-        val call = retrofit.create(BlobManager.BlobInterface::class.java).getWinnerDetails()
-        call.enqueue(object : Callback<List<WinnerDetails>> {
+    fun getBlogs(listener: ResponseListener<BlogResponse>) {
+        val call = retrofit.create(BlogManager.BlogInterface::class.java).getArticles("fifa world cup", context.getString(
+            R.string.blog_api_key))
+        call.enqueue(object : Callback<BlogResponse> {
             override fun onResponse(
-                call: Call<List<WinnerDetails>>,
-                response: Response<List<WinnerDetails>>
+                call: Call<BlogResponse>,
+                response: Response<BlogResponse>
             ) {
                 if (!response.isSuccessful){
                     listener.didError(response.message())
@@ -33,7 +32,7 @@ class BlobManager(var context: Context) {
                 response.body()?.let { listener.didFetch(response.message(), it) }
             }
 
-            override fun onFailure(call: Call<List<WinnerDetails>>, t: Throwable) {
+            override fun onFailure(call: Call<BlogResponse>, t: Throwable) {
                 t.message?.let { listener.didError(it) }
             }
 
@@ -41,12 +40,12 @@ class BlobManager(var context: Context) {
     }
 
 
-    interface BlobInterface {
-        @GET("api/1029685401790726144")
-        fun getWinners(): Call<List<WinnerData>>
-
-        @GET("api/1030175605781708800")
-        fun getWinnerDetails(): Call<List<WinnerDetails>>
+    interface BlogInterface {
+        @GET("v2/everything")
+        fun getArticles(
+            @Query("q") q: String,
+            @Query("apiKey") apiKey: String
+        ): Call<BlogResponse>
     }
 
 }

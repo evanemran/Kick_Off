@@ -11,13 +11,13 @@
     <ImageView
         android:id="@+id/imageView_drawer"
         android:src="@drawable/ic_stats"
-        android:layout_width="22dp"
-        android:layout_height="22dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         app:tint="@color/mainLite" />
     <TextView
         android:text="Menu"
         android:textStyle="normal"
-        android:textSize="14sp"
+        android:textSize="16sp"
         android:textColor="@color/black"
         android:layout_marginStart="8dp"
         android:id="@+id/textView_drawer"

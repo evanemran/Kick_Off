@@ -4,14 +4,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.evanemran.kickoff.models.HistoryMenu
+import kotlinx.android.synthetic.main.activity_history_details.*
 
 class HistoryDetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_history_details)
 
-        var hMenu: HistoryMenu = intent.getSerializableExtra("history") as HistoryMenu
+        val hMenu: HistoryMenu = intent.getSerializableExtra("history") as HistoryMenu
 
+        toolbar_history_title.title = hMenu.title
         replaceFragment(hMenu.fragment)
 
 

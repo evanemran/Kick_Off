@@ -2,6 +2,9 @@
     <string name="app_name">Kick Off</string>
 
 
+    <string name="blog_api_key">69098ca7575f42069325e5168a565e07</string>
+
+
     <string name="register_now">New Here? Register Now!</string>
     <string name="register">Register</string>
     <string name="login_now">Already Registered? Login Now!</string>

@@ -45,50 +45,21 @@ class WinnersFragment : Fragment() {
 
         val manager: BlobManager = BlobManager(requireContext())
 
-        manager.getAllWinners(allWinnersResponseListener)
+        val animation: Sprite = Circle()
+        spin_kit_winner.setIndeterminateDrawable(animation)
+
+        showWinners()
 
 
     }
 
+    private fun showWinners() {
+        recycler_winners.setHasFixedSize(true)
+        recycler_winners.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        val adapter: WinnerListAdapter = WinnerListAdapter(requireContext(), winnerDetails)
+        recycler_winners.adapter = adapter
 
-    private val allWinnersResponseListener: ResponseListener<List<WinnerData>> = object : ResponseListener<List<WinnerData>>{
-        override fun didFetch(message: String, response: List<WinnerData>) {
-            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-
-            recycler_winners.setHasFixedSize(true)
-            recycler_winners.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            val adapter: WinnerListAdapter = WinnerListAdapter(requireContext(), response)
-            recycler_winners.adapter = adapter
-
-        }
-        override fun didError(message: String) {
-            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-        }
-    }
-
-//    private val allWinnersListener: ResponseListener<List<StandingsResponse>> = object : ResponseListener<List<StandingsResponse>>{
-//        override fun didFetch(message: String, response: List<StandingsResponse>) {
-////            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-//
-//            recycler_history.setHasFixedSize(true)
-//            recycler_history.isNestedScrollingEnabled = false
-//            recycler_history.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-//            val standingAdapter: StandingListAdapter = StandingListAdapter(requireContext(), response, teamClickListener)
-//            recycler_history.adapter = standingAdapter
-//
-//            spin_kit_teams.visibility = View.GONE
-//            scrollView_teams.visibility = View.VISIBLE
-//
-//        }
-//        override fun didError(message: String) {
-//            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-//        }
-//    }
-
-    private val historyClickListener: ClickListener<HistoryMenu> = object : ClickListener<HistoryMenu> {
-        override fun onClicked(data: HistoryMenu) {
-            startActivity(Intent(requireContext(), HistoryDetailsActivity::class.java)
-                .putExtra("history", data))
-        }
+        spin_kit_winner.visibility = View.GONE
+        recycler_winners.visibility = View.VISIBLE
     }
 }
