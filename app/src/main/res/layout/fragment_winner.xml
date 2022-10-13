@@ -6,7 +6,7 @@
     android:background="@color/white">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_history"
+        android:id="@+id/recycler_winners"
         android:layout_width="match_parent"
         tools:listitem="@layout/list_history"
         android:layout_height="wrap_content"
