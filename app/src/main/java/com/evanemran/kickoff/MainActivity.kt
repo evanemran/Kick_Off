@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.evanemran.kickoff.adapters.DrawerAdapter
@@ -87,7 +88,10 @@ class MainActivity : AppCompatActivity() {
             when (data) {
                 DrawerMenu.STATS -> Toast.makeText(this@MainActivity, "Will be added soon!", Toast.LENGTH_SHORT).show()
                 DrawerMenu.HISTORY -> {
-                    replaceFragment(HistoryFragment())
+                    if (selectedFragment !is HistoryFragment){
+                        selectedFragment = HistoryFragment()
+                        replaceFragment(HistoryFragment())
+                    }
                 }
                 DrawerMenu.BLOGS -> Toast.makeText(this@MainActivity, "Will be added soon!", Toast.LENGTH_SHORT).show()
                 DrawerMenu.HELP_CENTER -> Toast.makeText(this@MainActivity, "Will be added soon!", Toast.LENGTH_SHORT).show()
@@ -95,6 +99,8 @@ class MainActivity : AppCompatActivity() {
                 DrawerMenu.TERMS -> Toast.makeText(this@MainActivity, "Will be added soon!", Toast.LENGTH_SHORT).show()
                 DrawerMenu.LOGOUT -> logout()
             }
+
+            drawer_layout.closeDrawer(GravityCompat.START)
         }
 
     }
@@ -105,4 +111,6 @@ class MainActivity : AppCompatActivity() {
             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
         this@MainActivity.finish()
     }
+
+
 }

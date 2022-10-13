@@ -32,14 +32,14 @@ import kotlinx.android.synthetic.main.fragment_team.*
 import kotlinx.android.synthetic.main.fragment_team.recycler_groups
 import kotlinx.android.synthetic.main.fragment_team.recycler_teams
 
-class HistoryFragment : Fragment() {
+class GoldenBootFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_history, container, false)
+        return inflater.inflate(R.layout.fragment_wc_stats, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

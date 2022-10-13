@@ -13,10 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.evanemran.kickoff.HistoryDetailsActivity
 import com.evanemran.kickoff.MainActivity
 import com.evanemran.kickoff.R
-import com.evanemran.kickoff.adapters.GroupsListAdapter
-import com.evanemran.kickoff.adapters.HistoryAdapter
-import com.evanemran.kickoff.adapters.StandingListAdapter
-import com.evanemran.kickoff.adapters.TeamListAdapter
+import com.evanemran.kickoff.adapters.*
 import com.evanemran.kickoff.constants.SharedPrefs
 import com.evanemran.kickoff.listeners.ClickListener
 import com.evanemran.kickoff.listeners.ResponseListener
@@ -31,15 +28,16 @@ import kotlinx.android.synthetic.main.fragment_match.*
 import kotlinx.android.synthetic.main.fragment_team.*
 import kotlinx.android.synthetic.main.fragment_team.recycler_groups
 import kotlinx.android.synthetic.main.fragment_team.recycler_teams
+import kotlinx.android.synthetic.main.fragment_winner.*
 
-class HistoryFragment : Fragment() {
+class WinnersFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_history, container, false)
+        return inflater.inflate(R.layout.fragment_winner, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -47,43 +45,26 @@ class HistoryFragment : Fragment() {
 
         val manager: BlobManager = BlobManager(requireContext())
 
-//        manager.getAllTeams(allTeamsResponseListener)
-//        manager.getAllWinners(allWinnersListener)
+        manager.getAllWinners(allWinnersResponseListener)
 
-        setupHistoryMenu()
 
     }
 
-    private fun setupHistoryMenu() {
-        val hMenu: MutableList<HistoryMenu> = mutableListOf()
 
-        hMenu.add(HistoryMenu.WINNERS)
-        hMenu.add(HistoryMenu.WC_DETAILS)
-        hMenu.add(HistoryMenu.GOLDEN_BALL)
-        hMenu.add(HistoryMenu.GOLDEN_BOOT)
-        hMenu.add(HistoryMenu.GOLDEN_GLOVE)
-        hMenu.add(HistoryMenu.YOUNG_PLAYER)
+    private val allWinnersResponseListener: ResponseListener<List<WinnerData>> = object : ResponseListener<List<WinnerData>>{
+        override fun didFetch(message: String, response: List<WinnerData>) {
+            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
 
-        recycler_history.setHasFixedSize(true)
-        recycler_history.layoutManager = GridLayoutManager(requireContext(), 2)
-        val adapter: HistoryAdapter = HistoryAdapter(requireContext(), hMenu, historyClickListener)
-        recycler_history.adapter = adapter
+            recycler_winners.setHasFixedSize(true)
+            recycler_winners.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            val adapter: WinnerListAdapter = WinnerListAdapter(requireContext(), response)
+            recycler_winners.adapter = adapter
+
+        }
+        override fun didError(message: String) {
+            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+        }
     }
-
-//    private val allTeamsResponseListener: ResponseListener<ResponseWrapper<List<TeamInfo>>> = object : ResponseListener<ResponseWrapper<List<TeamInfo>>>{
-//        override fun didFetch(message: String, response: ResponseWrapper<List<TeamInfo>>) {
-//            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-//
-//            recycler_teams.setHasFixedSize(true)
-//            recycler_teams.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-//            val adapter: TeamListAdapter = TeamListAdapter(requireContext(), response.data!!, teamClickListener)
-//            recycler_teams.adapter = adapter
-//
-//        }
-//        override fun didError(message: String) {
-//            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-//        }
-//    }
 
 //    private val allWinnersListener: ResponseListener<List<StandingsResponse>> = object : ResponseListener<List<StandingsResponse>>{
 //        override fun didFetch(message: String, response: List<StandingsResponse>) {
