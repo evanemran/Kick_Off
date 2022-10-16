@@ -1,5 +1,6 @@
 package com.evanemran.kickoff
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -14,6 +15,7 @@ import com.evanemran.kickoff.constants.SharedPrefs
 import kotlinx.android.synthetic.main.activity_splash.*
 
 
+@SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
     var topAnim: Animation? = null
     var bottomAnim:Animation? = null

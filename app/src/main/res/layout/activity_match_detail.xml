@@ -133,6 +133,7 @@
             android:background="@android:color/transparent"
             app:tabGravity="center"
             android:fontFamily="@font/qwc"
+            app:tabTextColor="@color/black"
             app:tabIndicatorGravity="stretch"
             app:tabTextAppearance="@style/tab_text"
             app:tabSelectedTextColor="@color/white"

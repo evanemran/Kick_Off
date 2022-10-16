@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.evanemran.kickoff.BlogDetailsActivity
 import com.evanemran.kickoff.HistoryDetailsActivity
 import com.evanemran.kickoff.MainActivity
 import com.evanemran.kickoff.R
@@ -56,7 +57,8 @@ class BlogFragment : Fragment() {
 
     private val blogClickListener: ClickListener<Blog> = object : ClickListener<Blog> {
         override fun onClicked(data: Blog) {
-            Toast.makeText(requireContext(), data.title, Toast.LENGTH_SHORT).show()
+            startActivity(Intent(requireContext(), BlogDetailsActivity::class.java)
+                .putExtra("url", data.url))
         }
     }
 

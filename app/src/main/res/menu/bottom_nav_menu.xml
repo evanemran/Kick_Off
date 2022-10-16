@@ -19,5 +19,5 @@
         android:id="@+id/stands"
         android:title="Standings"
         android:iconTint="@color/black"
-        android:icon="@drawable/profile"/>
+        android:icon="@drawable/ic_profile"/>
 </menu>

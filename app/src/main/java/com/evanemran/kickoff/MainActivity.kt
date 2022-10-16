@@ -1,21 +1,21 @@
 package com.evanemran.kickoff
 
+import android.app.PendingIntent.getActivity
+import android.app.ProgressDialog.show
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.evanemran.kickoff.adapters.DrawerAdapter
 import com.evanemran.kickoff.constants.SharedPrefs
-import com.evanemran.kickoff.fragments.BlogFragment
-import com.evanemran.kickoff.fragments.HistoryFragment
-import com.evanemran.kickoff.fragments.MatchFragment
-import com.evanemran.kickoff.fragments.TeamFragment
+import com.evanemran.kickoff.fragments.*
 import com.evanemran.kickoff.listeners.ClickListener
 import com.evanemran.kickoff.models.DrawerMenu
+import com.evanemran.kickoff.utils.ExitDialog
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -42,6 +42,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupNavMenu() {
         val navMenus: MutableList<DrawerMenu> = mutableListOf()
+        navMenus.add(DrawerMenu.HOME)
         navMenus.add(DrawerMenu.STATS)
         navMenus.add(DrawerMenu.HISTORY)
         navMenus.add(DrawerMenu.BLOGS)
@@ -72,7 +73,12 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
                 R.id.match -> replaceFragment(TeamFragment())
-                R.id.stands -> replaceFragment(TeamFragment())
+                R.id.stands -> {
+                    if (selectedFragment !is ProfileFragment){
+                        selectedFragment = ProfileFragment()
+                        replaceFragment(ProfileFragment())
+                    }
+                }
             }
             true
         }
@@ -87,6 +93,12 @@ class MainActivity : AppCompatActivity() {
     private val drawerClickListener: ClickListener<DrawerMenu> = object : ClickListener<DrawerMenu>{
         override fun onClicked(data: DrawerMenu) {
             when (data) {
+                DrawerMenu.HOME -> {
+                    if (selectedFragment !is MatchFragment){
+                        selectedFragment = MatchFragment()
+                        replaceFragment(MatchFragment())
+                    }
+                }
                 DrawerMenu.STATS -> Toast.makeText(this@MainActivity, "Will be added soon!", Toast.LENGTH_SHORT).show()
                 DrawerMenu.HISTORY -> {
                     if (selectedFragment !is HistoryFragment){
@@ -116,6 +128,11 @@ class MainActivity : AppCompatActivity() {
         startActivity(Intent(this, AuthActivity::class.java)
             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
         this@MainActivity.finish()
+    }
+
+    override fun onBackPressed() {
+        val dialog: ExitDialog = ExitDialog()
+        dialog.show(supportFragmentManager, "Category")
     }
 
 

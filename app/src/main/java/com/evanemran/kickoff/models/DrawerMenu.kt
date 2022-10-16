@@ -3,6 +3,7 @@ package com.evanemran.kickoff.models
 import com.evanemran.kickoff.R
 
 enum class DrawerMenu(title: String, icon: Int) {
+    HOME("Home", R.drawable.ic_goal),
     STATS("Stats", R.drawable.ic_stats),
     HISTORY("History",R.drawable.ic_history),
     BLOGS("Blogs", R.drawable.ic_news),
