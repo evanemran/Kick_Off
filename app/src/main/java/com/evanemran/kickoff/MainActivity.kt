@@ -101,9 +101,9 @@ class MainActivity : AppCompatActivity() {
                 }
                 DrawerMenu.STATS -> Toast.makeText(this@MainActivity, "Will be added soon!", Toast.LENGTH_SHORT).show()
                 DrawerMenu.HISTORY -> {
-                    if (selectedFragment !is HistoryFragment){
-                        selectedFragment = HistoryFragment()
-                        replaceFragment(HistoryFragment())
+                    if (selectedFragment !is WcHistoryFragment){
+                        selectedFragment = WcHistoryFragment()
+                        replaceFragment(WcHistoryFragment())
                     }
                 }
                 DrawerMenu.BLOGS -> {

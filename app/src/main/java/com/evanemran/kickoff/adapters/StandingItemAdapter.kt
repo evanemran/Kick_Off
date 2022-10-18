@@ -11,13 +11,14 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.evanemran.kickoff.R
 import com.evanemran.kickoff.listeners.ClickListener
+import com.evanemran.kickoff.models.FlyTeams
 import com.evanemran.kickoff.models.TeamInfo
 import com.evanemran.kickoff.models.TeamPoints
 import com.squareup.picasso.Picasso
 
 class StandingItemAdapter(
     val context: Context,
-    val list: List<TeamPoints>,
+    val list: List<FlyTeams>,
 ) : RecyclerView.Adapter<StandingItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StandingItemViewHolder {
@@ -27,30 +28,28 @@ class StandingItemAdapter(
     override fun onBindViewHolder(holder: StandingItemViewHolder, position: Int) {
         val item = list[position]
 
-        if (Integer.parseInt(item.team_id)%2!=0) {
+        if (position%2!=0) {
             holder.standing_container.setBackgroundColor(context.getColor(R.color.gTrans))
         }
-        holder.textView_name.text = item.name_en
-        if (Integer.parseInt(item.team_id) < 10) {
-            holder.textView_code.text = "0"+item.team_id
-        }
-        else holder.textView_code.text = item.team_id
-        holder.textView_mp.text = item.mp
-        holder.textView_w.text = item.w
-        holder.textView_l.text = item.l
-        holder.textView_p.text = item.pts
-        holder.textView_gf.text = item.gf
-        holder.textView_ga.text = item.ga
-        holder.textView_gd.text = item.gd
+        holder.textView_name.text = item.name
+        holder.textView_code.text = (position+1).toString()
 
-        if(item.name_en.equals("Nederland")) {
+        holder.textView_mp.text = item.games_played
+        holder.textView_w.text = item.wins
+        holder.textView_l.text = item.losses
+        holder.textView_p.text = item.group_points
+        holder.textView_gf.text = item.goals_for
+        holder.textView_ga.text = item.goals_against
+        holder.textView_gd.text = item.goal_differential
+
+        if(item.name.equals("Nederland")) {
             Picasso.get().load("https://countryflagsapi.com/png/NLD").into(holder.imageView_tImage)
         }
-        else if(item.name_en.equals("South Korea")) {
+        else if(item.name.equals("South Korea")) {
             Picasso.get().load("https://countryflagsapi.com/png/KOR").into(holder.imageView_tImage)
         }
 
-        else Picasso.get().load("https://countryflagsapi.com/png/" + item.name_en).into(holder.imageView_tImage)
+        else Picasso.get().load("https://countryflagsapi.com/png/" + item.name).into(holder.imageView_tImage)
     }
 
     override fun getItemCount(): Int {

@@ -17,6 +17,7 @@ import com.evanemran.kickoff.adapters.TeamListAdapter
 import com.evanemran.kickoff.constants.SharedPrefs
 import com.evanemran.kickoff.listeners.ClickListener
 import com.evanemran.kickoff.listeners.ResponseListener
+import com.evanemran.kickoff.manager.FlyManager
 import com.evanemran.kickoff.manager.RequestManager
 import com.evanemran.kickoff.models.*
 import com.github.ybq.android.spinkit.sprite.Sprite
@@ -40,44 +41,28 @@ class TeamFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val manager: RequestManager = RequestManager(requireContext())
+        val manager: FlyManager = FlyManager(requireContext())
 
         val animation: Sprite = Circle()
         spin_kit_teams.setIndeterminateDrawable(animation)
 
-//        manager.getAllTeams(allTeamsResponseListener)
         manager.getStandings(groupStandingsListener)
 
     }
 
-    private val allTeamsResponseListener: ResponseListener<ResponseWrapper<List<TeamInfo>>> = object : ResponseListener<ResponseWrapper<List<TeamInfo>>>{
-        override fun didFetch(message: String, response: ResponseWrapper<List<TeamInfo>>) {
-            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-
-            recycler_teams.setHasFixedSize(true)
-            recycler_teams.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            val adapter: TeamListAdapter = TeamListAdapter(requireContext(), response.data!!, teamClickListener)
-            recycler_teams.adapter = adapter
-
-        }
-        override fun didError(message: String) {
-            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private val groupStandingsListener: ResponseListener<ResponseWrapper<List<StandingsResponse>>> = object : ResponseListener<ResponseWrapper<List<StandingsResponse>>>{
-        override fun didFetch(message: String, response: ResponseWrapper<List<StandingsResponse>>) {
+    private val groupStandingsListener: ResponseListener<FlyStandingResponse> = object : ResponseListener<FlyStandingResponse>{
+        override fun didFetch(message: String, response: FlyStandingResponse) {
 //            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
 
             recycler_groups.setHasFixedSize(true)
             recycler_groups.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            val groupAdapter: GroupsListAdapter = GroupsListAdapter(requireContext(), response.data!!, teamClickListener)
+            val groupAdapter: GroupsListAdapter = GroupsListAdapter(requireContext(), response.groups)
             recycler_groups.adapter = groupAdapter
 
             recycler_standings.setHasFixedSize(true)
             recycler_standings.isNestedScrollingEnabled = false
             recycler_standings.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            val standingAdapter: StandingListAdapter = StandingListAdapter(requireContext(), response.data!!, teamClickListener)
+            val standingAdapter: StandingListAdapter = StandingListAdapter(requireContext(), response.groups, standingClickListener)
             recycler_standings.adapter = standingAdapter
 
             spin_kit_teams.visibility = View.GONE
@@ -89,9 +74,9 @@ class TeamFragment : Fragment() {
         }
     }
 
-    private val teamClickListener: ClickListener<TeamInfo> = object : ClickListener<TeamInfo> {
-        override fun onClicked(data: TeamInfo) {
-            Toast.makeText(context, data.fifa_code, Toast.LENGTH_SHORT).show()
+    private val standingClickListener: ClickListener<FlyStats> = object : ClickListener<FlyStats> {
+        override fun onClicked(data: FlyStats) {
+            Toast.makeText(context, data.letter, Toast.LENGTH_SHORT).show()
         }
 
     }

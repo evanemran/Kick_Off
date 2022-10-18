@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.evanemran.kickoff.R
 import com.evanemran.kickoff.listeners.ClickListener
+import com.evanemran.kickoff.models.FlyStats
 import com.evanemran.kickoff.models.StandingsResponse
 import com.evanemran.kickoff.models.TeamInfo
 import com.evanemran.kickoff.models.TeamPoints
@@ -18,8 +19,8 @@ import com.squareup.picasso.Picasso
 
 class StandingListAdapter(
     val context: Context,
-    val list: List<StandingsResponse>,
-    val listener: ClickListener<TeamInfo>
+    val list: List<FlyStats>,
+    val listener: ClickListener<FlyStats>
 ) : RecyclerView.Adapter<StandingListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StandingListViewHolder {
@@ -29,7 +30,7 @@ class StandingListAdapter(
     override fun onBindViewHolder(holder: StandingListViewHolder, position: Int) {
         val item = list[position]
 
-        holder.textView_groupName.text = "Group "+item.group
+        holder.textView_groupName.text = "Group "+item.letter
 
         holder.recycler_standings_item.setHasFixedSize(true)
         holder.recycler_standings_item.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)

@@ -3,6 +3,9 @@
 
 
     <string name="blog_api_key">69098ca7575f42069325e5168a565e07</string>
+    <string name="live_api_key">W9v4AtPirMPKcbjs</string>
+    <string name="live_api_sec">IawiImYjoyEzLvjHEPMfiBxKnmuAyO3g</string>
+    <string name="fifa_id">362</string>
 
 
     <string name="register_now">New Here? Register Now!</string>

@@ -10,13 +10,14 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.evanemran.kickoff.R
 import com.evanemran.kickoff.listeners.ClickListener
+import com.evanemran.kickoff.models.FlyTeams
 import com.evanemran.kickoff.models.TeamInfo
 import com.evanemran.kickoff.models.TeamPoints
 import com.squareup.picasso.Picasso
 
 class GroupsItemAdapter(
     val context: Context,
-    val list: List<TeamPoints>,
+    val list: List<FlyTeams>,
 ) : RecyclerView.Adapter<GroupsItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupsItemViewHolder {
@@ -26,17 +27,17 @@ class GroupsItemAdapter(
     override fun onBindViewHolder(holder: GroupsItemViewHolder, position: Int) {
         val item = list[position]
 
-        holder.textView_tTitle.text = item.name_en
+        holder.textView_tTitle.text = item.name
         holder.textView_tTitle.isSelected = true
 
-        if(item.name_en.equals("Nederland")) {
+        if(item.name.equals("Nederland")) {
             Picasso.get().load("https://countryflagsapi.com/png/NLD").into(holder.imageView_tImage)
         }
-        else if(item.name_en.equals("South Korea")) {
+        else if(item.name.equals("South Korea")) {
             Picasso.get().load("https://countryflagsapi.com/png/KOR").into(holder.imageView_tImage)
         }
 
-        else Picasso.get().load("https://countryflagsapi.com/png/" + item.name_en).into(holder.imageView_tImage)
+        else Picasso.get().load("https://countryflagsapi.com/png/" + item.name).into(holder.imageView_tImage)
     }
 
     override fun getItemCount(): Int {

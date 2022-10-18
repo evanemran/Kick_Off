@@ -46,7 +46,7 @@ class MatchFragment : Fragment() {
         spin_kit_match.setIndeterminateDrawable(animation)
 
 //        manager.getAllMatches(allMatchesResponseListener)
-        manager.getStandings(groupStandingsListener)
+//        manager.getStandings(groupStandingsListener)
         flyManager.getAllMatches(allMatchesResponseListener)
 
     }
@@ -73,10 +73,10 @@ class MatchFragment : Fragment() {
         override fun didFetch(message: String, response: ResponseWrapper<List<StandingsResponse>>) {
 //            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
 
-            recycler_groups.setHasFixedSize(true)
-            recycler_groups.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            val groupAdapter: GroupsListAdapter = GroupsListAdapter(requireContext(), response.data!!, teamClickListener)
-            recycler_groups.adapter = groupAdapter
+//            recycler_groups.setHasFixedSize(true)
+//            recycler_groups.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+//            val groupAdapter: GroupsListAdapter = GroupsListAdapter(requireContext(), response.data!!, teamClickListener)
+//            recycler_groups.adapter = groupAdapter
 
 //            recycler_standings.setHasFixedSize(true)
 //            recycler_standings.isNestedScrollingEnabled = false
