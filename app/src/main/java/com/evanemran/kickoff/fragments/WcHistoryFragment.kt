@@ -22,6 +22,7 @@ import com.evanemran.kickoff.manager.RequestManager
 import com.evanemran.kickoff.models.*
 import com.github.ybq.android.spinkit.sprite.Sprite
 import com.github.ybq.android.spinkit.style.Circle
+import kotlinx.android.synthetic.main.activity_history_details.*
 import kotlinx.android.synthetic.main.fragment_history.*
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_match.*
@@ -30,6 +31,8 @@ import kotlinx.android.synthetic.main.fragment_team.recycler_groups
 import kotlinx.android.synthetic.main.fragment_team.recycler_teams
 import kotlinx.android.synthetic.main.fragment_wc_history.*
 import kotlinx.android.synthetic.main.fragment_winner.*
+
+var winnerList: List<WinnerDetails> = listOf()
 
 class WcHistoryFragment : Fragment() {
 
@@ -44,11 +47,27 @@ class WcHistoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        val animation: Sprite = Circle()
-//        spin_kit_history.setIndeterminateDrawable(animation)
+        val animation: Sprite = Circle()
+        spin_kit_wc_history.setIndeterminateDrawable(animation)
 
-        setupWcHistory()
+        var manager: BlobManager = BlobManager(requireContext())
+        manager.getDetails(winnerDetailsListener)
 
+    }
+
+    private val winnerDetailsListener: ResponseListener<List<WinnerDetails>> = object :
+        ResponseListener<List<WinnerDetails>> {
+        override fun didFetch(message: String, response: List<WinnerDetails>) {
+            winnerList = response
+            setupWcHistory()
+            spin_kit_wc_history.visibility = View.GONE
+            recycler_wc_history.visibility = View.VISIBLE
+        }
+
+        override fun didError(message: String) {
+            spin_kit_wc_history.visibility = View.GONE
+            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun setupWcHistory() {
