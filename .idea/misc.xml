@@ -21,6 +21,7 @@
         <entry key="..\:/Android_Projects/KickOff/app/src/main/res/layout/fragment_lineup.xml" value="0.1921875" />
         <entry key="..\:/Android_Projects/KickOff/app/src/main/res/layout/fragment_login.xml" value="0.19114583333333332" />
         <entry key="..\:/Android_Projects/KickOff/app/src/main/res/layout/fragment_match.xml" value="0.1921875" />
+        <entry key="..\:/Android_Projects/KickOff/app/src/main/res/layout/fragment_profile.xml" value="0.1921875" />
         <entry key="..\:/Android_Projects/KickOff/app/src/main/res/layout/fragment_register.xml" value="0.1921875" />
         <entry key="..\:/Android_Projects/KickOff/app/src/main/res/layout/fragment_states.xml" value="0.19114583333333332" />
         <entry key="..\:/Android_Projects/KickOff/app/src/main/res/layout/fragment_team.xml" value="0.1921875" />
@@ -32,6 +33,7 @@
         <entry key="..\:/Android_Projects/KickOff/app/src/main/res/layout/list_group_item.xml" value="0.1921875" />
         <entry key="..\:/Android_Projects/KickOff/app/src/main/res/layout/list_history.xml" value="0.19114583333333332" />
         <entry key="..\:/Android_Projects/KickOff/app/src/main/res/layout/list_matches.xml" value="0.19114583333333332" />
+        <entry key="..\:/Android_Projects/KickOff/app/src/main/res/layout/list_matches_two.xml" value="0.1921875" />
         <entry key="..\:/Android_Projects/KickOff/app/src/main/res/layout/list_standings.xml" value="0.1921875" />
         <entry key="..\:/Android_Projects/KickOff/app/src/main/res/layout/list_standings_item.xml" value="0.1921875" />
         <entry key="..\:/Android_Projects/KickOff/app/src/main/res/layout/list_teams.xml" value="0.1921875" />

@@ -4,42 +4,42 @@ import java.io.Serializable
 
 class MatchDataFly : Serializable {
     var id = 0
-    var venue: String? = null
-    var location: String? = null
-    var status: String? = null
+    var venue: String? = ""
+    var location: String? = ""
+    var status: String? = ""
     var weather: Weather? = null
-    var attendance: Any? = null
-    var officials: ArrayList<Any>? = null
-    var stage_name: String? = null
-    var home_team_country: String? = null
-    var away_team_country: String? = null
-    var datetime: String? = null
-    var winner: Any? = null
-    var winner_code: Any? = null
+    var attendance: String? = ""
+    var officials: List<String>? = null
+    var stage_name: String? = ""
+    var home_team_country: String? = ""
+    var away_team_country: String? = ""
+    var datetime: String? = ""
+    var winner: String? = ""
+    var winner_code: String? = ""
     var home_team: HomeTeam? = null
     var away_team: AwayTeam? = null
-    var last_checked_at: String? = null
-    var last_changed_at: String? = null
+    var last_checked_at: String? = ""
+    var last_changed_at: String? = ""
 }
 
 class Weather : Serializable {
-    var humidity: Any? = null
-    var temp_celsius: Any? = null
-    var temp_farenheit: Any? = null
-    var wind_speed: Any? = null
-    var description: Any? = null
+    var humidity: String? = ""
+    var temp_celsius: String? = ""
+    var temp_farenheit: String? = ""
+    var wind_speed: String? = ""
+    var description: String? = ""
 }
 
 class HomeTeam : Serializable {
-    var country: String? = null
-    var name: String? = null
-    var goals: Any? = null
-    var penalties: Any? = null
+    var country: String? = ""
+    var name: String? = ""
+    var goals: String? = ""
+    var penalties: String? = ""
 }
 
 class AwayTeam : Serializable {
-    var country: String? = null
-    var name: String? = null
-    var goals: Any? = null
-    var penalties: Any? = null
+    var country: String? = ""
+    var name: String? = ""
+    var goals: String? = ""
+    var penalties: String? = ""
 }

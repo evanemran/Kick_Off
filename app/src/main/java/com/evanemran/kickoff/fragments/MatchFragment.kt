@@ -48,6 +48,7 @@ class MatchFragment : Fragment() {
 //        manager.getAllMatches(allMatchesResponseListener)
 //        manager.getStandings(groupStandingsListener)
         flyManager.getAllMatches(allMatchesResponseListener)
+        flyManager.getTodayMatches(todayMatchesListener)
 
     }
 
@@ -69,21 +70,14 @@ class MatchFragment : Fragment() {
         }
     }
 
-    private val groupStandingsListener: ResponseListener<ResponseWrapper<List<StandingsResponse>>> = object : ResponseListener<ResponseWrapper<List<StandingsResponse>>>{
-        override fun didFetch(message: String, response: ResponseWrapper<List<StandingsResponse>>) {
+    private val todayMatchesListener: ResponseListener<List<MatchDataFly>> = object : ResponseListener<List<MatchDataFly>>{
+        override fun didFetch(message: String, response: List<MatchDataFly>) {
 //            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
 
-//            recycler_groups.setHasFixedSize(true)
-//            recycler_groups.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-//            val groupAdapter: GroupsListAdapter = GroupsListAdapter(requireContext(), response.data!!, teamClickListener)
-//            recycler_groups.adapter = groupAdapter
-
-//            recycler_standings.setHasFixedSize(true)
-//            recycler_standings.isNestedScrollingEnabled = false
-//            recycler_standings.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-//            val standingAdapter: StandingListAdapter = StandingListAdapter(requireContext(), response.data!!, teamClickListener)
-//            recycler_standings.adapter = standingAdapter
-
+            recycler_today_match.setHasFixedSize(true)
+            recycler_today_match.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            val todayMatchAdapter: MatchListAdapter = MatchListAdapter(requireContext(), response, matchClickListener)
+            recycler_today_match.adapter = todayMatchAdapter
         }
         override fun didError(message: String) {
             Toast.makeText(context, message, Toast.LENGTH_SHORT).show()

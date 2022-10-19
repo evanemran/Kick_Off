@@ -2,14 +2,103 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center">
+    android:orientation="vertical">
 
-    <TextView
-        android:text="Lineup"
-        android:textAlignment="center"
-        android:textColor="@color/mainDeep"
-        android:textSize="20sp"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:text="Venue: "
+            android:textStyle="bold"
+            android:fontFamily="@font/qwc"
+            android:textColor="@color/mainLite"
+            android:textSize="18sp"
+            android:padding="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/textView_venue"
+            android:text="Stadium name"
+            android:textStyle="bold"
+            android:fontFamily="@font/qwc"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:padding="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:text="Location: "
+            android:textStyle="bold"
+            android:fontFamily="@font/qwc"
+            android:textColor="@color/mainLite"
+            android:textSize="18sp"
+            android:padding="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/textView_location"
+            android:text="Stadium name"
+            android:textStyle="bold"
+            android:fontFamily="@font/qwc"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:padding="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:text="Attendance: "
+            android:textStyle="bold"
+            android:fontFamily="@font/qwc"
+            android:textColor="@color/mainLite"
+            android:textSize="18sp"
+            android:padding="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/textView_attendance"
+            android:text="Stadium name"
+            android:textStyle="bold"
+            android:fontFamily="@font/qwc"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:padding="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:text="Stage: "
+            android:textStyle="bold"
+            android:fontFamily="@font/qwc"
+            android:textColor="@color/mainLite"
+            android:textSize="18sp"
+            android:padding="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/textView_stage"
+            android:text="Stadium name"
+            android:textStyle="bold"
+            android:fontFamily="@font/qwc"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:padding="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
 
 </LinearLayout>

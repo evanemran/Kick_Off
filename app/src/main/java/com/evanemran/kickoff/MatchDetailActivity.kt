@@ -27,7 +27,7 @@ class MatchDetailActivity : AppCompatActivity() {
         var pagerAdapter: MatchPagerAdapter = MatchPagerAdapter(supportFragmentManager)
         pagerAdapter.addFragment(StatesFragment(), "States")
         pagerAdapter.addFragment(TimeLineFragment(), "Timeline")
-        pagerAdapter.addFragment(LineUpFragment(), "Line-Up")
+        pagerAdapter.addFragment(LineUpFragment(), "Info")
 
         view_pager.adapter = pagerAdapter
         tab_layout.setupWithViewPager(view_pager)

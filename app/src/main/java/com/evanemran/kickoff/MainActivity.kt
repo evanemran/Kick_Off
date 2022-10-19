@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         navMenus.add(DrawerMenu.HELP_CENTER)
         navMenus.add(DrawerMenu.SETTINGS)
         navMenus.add(DrawerMenu.TERMS)
-        navMenus.add(DrawerMenu.LOGOUT)
+//        navMenus.add(DrawerMenu.LOGOUT)
 
         recycler_nav.setHasFixedSize(true)
         recycler_nav.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)

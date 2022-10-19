@@ -29,15 +29,17 @@ class MatchListAdapter(
     override fun onBindViewHolder(holder: MatchListViewHolder, position: Int) {
         val item = list[position]
 
-        holder.textView_homeName.text = item.home_team?.name
-        holder.textView_awayName.text = item.away_team?.name
+        holder.textView_homeName.text = item.home_team?.country
+        holder.textView_awayName.text = item.away_team?.country
 
         val dateFormatter = SimpleDateFormat("EEE, d MMM")
-        val timeFormatter = SimpleDateFormat("hh:mm a")
+        val timeFormatter = SimpleDateFormat("hh:mm")
+        val ampmFormatter = SimpleDateFormat("a")
         val date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(item.datetime)
 
         holder.match_date.text = dateFormatter.format(date)
         holder.match_time.text = timeFormatter.format(date)
+        holder.match_time_ampm.text = ampmFormatter.format(date)
 
         Picasso.get().load("https://countryflagsapi.com/png/" + item.home_team?.name).placeholder(R.drawable.flag_placeholder).into(holder.imageView_homeImage)
         Picasso.get().load("https://countryflagsapi.com/png/" + item.away_team?.name).placeholder(R.drawable.flag_placeholder).into(holder.imageView_awayImage)
@@ -61,4 +63,5 @@ class MatchListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val textView_awayName = itemView.findViewById<TextView>(R.id.textView_awayName)
     val match_date = itemView.findViewById<TextView>(R.id.match_date)
     val match_time = itemView.findViewById<TextView>(R.id.match_time)
+    val match_time_ampm = itemView.findViewById<TextView>(R.id.match_time_ampm)
 }

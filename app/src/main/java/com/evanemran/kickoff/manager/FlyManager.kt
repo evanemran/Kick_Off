@@ -40,6 +40,27 @@ class FlyManager(var context: Context) {
         })
     }
 
+    fun getTodayMatches(listener: ResponseListener<List<MatchDataFly>>) {
+        val call = retrofit.create(FlyManager.FlyInterface::class.java).getTodayMatches()
+        call.enqueue(object : Callback<List<MatchDataFly>> {
+            override fun onResponse(
+                call: Call<List<MatchDataFly>>,
+                response: Response<List<MatchDataFly>>
+            ) {
+                if (!response.isSuccessful){
+                    listener.didError(response.message())
+                    return
+                }
+                response.body()?.let { listener.didFetch(response.message(), it) }
+            }
+
+            override fun onFailure(call: Call<List<MatchDataFly>>, t: Throwable) {
+                t.message?.let { listener.didError(it) }
+            }
+
+        })
+    }
+
     fun getStandings(listener: ResponseListener<FlyStandingResponse>) {
         val call = retrofit.create(FlyManager.FlyInterface::class.java).getStats()
         call.enqueue(object : Callback<FlyStandingResponse> {
@@ -65,6 +86,9 @@ class FlyManager(var context: Context) {
     interface FlyInterface {
         @GET("matches")
         fun getMatches(): Call<List<MatchDataFly>>
+
+        @GET("matches/today")
+        fun getTodayMatches(): Call<List<MatchDataFly>>
 
         @GET("teams")
         fun getStats(): Call<FlyStandingResponse>

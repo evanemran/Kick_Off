@@ -45,7 +45,7 @@ class StandingItemAdapter(
         if(item.name.equals("Nederland")) {
             Picasso.get().load("https://countryflagsapi.com/png/NLD").into(holder.imageView_tImage)
         }
-        else if(item.name.equals("South Korea")) {
+        else if(item.name.equals("Korea Republic")) {
             Picasso.get().load("https://countryflagsapi.com/png/KOR").into(holder.imageView_tImage)
         }
 
