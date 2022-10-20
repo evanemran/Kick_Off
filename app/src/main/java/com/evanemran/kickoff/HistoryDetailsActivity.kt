@@ -41,5 +41,9 @@ class HistoryDetailsActivity : AppCompatActivity() {
         textView_runnerUp.text = it.RunnersUp
         textView_third.text = it.Third
         textView_fourth.text = it.Fourth
+
+        textView_gd_ball.text = it.golden_ball
+        textView_gd_boot.text = it.golden_boot
+        textView_gd_glove.text = it.golden_glove
     }
 }

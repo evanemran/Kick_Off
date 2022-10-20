@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="240dp"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@color/mainLite"
     android:padding="16dp"
     android:gravity="bottom">
     <ImageView
-        android:layout_marginTop="16dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher"/>
+        android:layout_marginTop="40dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/qwc"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,8 +27,9 @@
         android:text="Version 1.1"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="12sp" />
+        android:textSize="14sp" />
     <TextView
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
