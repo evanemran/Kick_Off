@@ -10,8 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.evanemran.kickoff.MatchDetailActivity
 import com.evanemran.kickoff.R
-import com.evanemran.kickoff.adapters.GroupsListAdapter
 import com.evanemran.kickoff.adapters.MatchListAdapter
+import com.evanemran.kickoff.database.RoomDB
 import com.evanemran.kickoff.listeners.ClickListener
 import com.evanemran.kickoff.listeners.ResponseListener
 import com.evanemran.kickoff.manager.FlyManager
@@ -19,11 +19,9 @@ import com.evanemran.kickoff.manager.RequestManager
 import com.evanemran.kickoff.models.*
 import com.github.ybq.android.spinkit.sprite.Sprite
 import com.github.ybq.android.spinkit.style.Circle
-import com.github.ybq.android.spinkit.style.DoubleBounce
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_match.*
 import kotlinx.android.synthetic.main.fragment_team.*
-import kotlinx.android.synthetic.main.fragment_team.recycler_groups
 
 
 class MatchFragment : Fragment() {
