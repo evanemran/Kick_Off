@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "527607604965",
+    "project_id": "kick-off-2a73e",
+    "storage_bucket": "kick-off-2a73e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:527607604965:android:060ecaee4eb0a8db21d60c",
+        "android_client_info": {
+          "package_name": "com.evanemran.kickoff"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "527607604965-kbn6rr7nqh24obk53phabmi1tef6koqs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDN0-Iv-leg940ygSYU_5Ftis8pWsJGJRM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "527607604965-kbn6rr7nqh24obk53phabmi1tef6koqs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
