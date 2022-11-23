@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.evanemran.kickoff.MatchDetailActivity
 import com.evanemran.kickoff.R
 import com.evanemran.kickoff.adapters.MatchListAdapter
-import com.evanemran.kickoff.database.RoomDB
+import com.evanemran.kickoff.adapters.SliderAdapter
 import com.evanemran.kickoff.listeners.ClickListener
 import com.evanemran.kickoff.listeners.ResponseListener
 import com.evanemran.kickoff.manager.FlyManager
@@ -19,9 +19,9 @@ import com.evanemran.kickoff.manager.RequestManager
 import com.evanemran.kickoff.models.*
 import com.github.ybq.android.spinkit.sprite.Sprite
 import com.github.ybq.android.spinkit.style.Circle
-import kotlinx.android.synthetic.main.fragment_login.*
+import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType
+import com.smarteist.autoimageslider.SliderAnimations
 import kotlinx.android.synthetic.main.fragment_match.*
-import kotlinx.android.synthetic.main.fragment_team.*
 
 
 class MatchFragment : Fragment() {
@@ -72,10 +72,19 @@ class MatchFragment : Fragment() {
         override fun didFetch(message: String, response: List<MatchDataFly>) {
 //            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
 
-            recycler_today_match.setHasFixedSize(true)
-            recycler_today_match.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            val todayMatchAdapter: MatchListAdapter = MatchListAdapter(requireContext(), response, matchClickListener)
-            recycler_today_match.adapter = todayMatchAdapter
+
+            var sliderAdapter = SliderAdapter(requireContext(), response)
+            slider.setSliderAdapter(sliderAdapter)
+            slider.setIndicatorAnimation(IndicatorAnimationType.WORM)
+            slider.setSliderTransformAnimation(SliderAnimations.DEPTHTRANSFORMATION)
+            slider.startAutoCycle()
+
+
+
+//            recycler_today_match.setHasFixedSize(true)
+//            recycler_today_match.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+//            val todayMatchAdapter: MatchListAdapter = MatchListAdapter(requireContext(), response, matchClickListener)
+//            recycler_today_match.adapter = todayMatchAdapter
         }
         override fun didError(message: String) {
             Toast.makeText(context, message, Toast.LENGTH_SHORT).show()

@@ -32,6 +32,9 @@ class MatchListAdapter(
         holder.textView_homeName.text = item.home_team?.country
         holder.textView_awayName.text = item.away_team?.country
 
+        holder.home_score.text = item.home_team?.goals.toString()
+        holder.away_score.text = item.away_team?.goals.toString()
+
         val dateFormatter = SimpleDateFormat("EEE, d MMM")
         val timeFormatter = SimpleDateFormat("hh:mm")
         val ampmFormatter = SimpleDateFormat("a")
@@ -64,4 +67,6 @@ class MatchListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val match_date = itemView.findViewById<TextView>(R.id.match_date)
     val match_time = itemView.findViewById<TextView>(R.id.match_time)
     val match_time_ampm = itemView.findViewById<TextView>(R.id.match_time_ampm)
+    val home_score = itemView.findViewById<TextView>(R.id.home_score)
+    val away_score = itemView.findViewById<TextView>(R.id.away_score)
 }

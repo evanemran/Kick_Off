@@ -17,7 +17,6 @@
             android:id="@+id/imageView_worldcups"
             android:scaleType="fitCenter"
             android:padding="8dp"
-            android:src="@drawable/winner"
             android:layout_width="match_parent"
             android:layout_height="150dp"/>
         <TextView

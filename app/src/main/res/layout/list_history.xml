@@ -16,7 +16,6 @@
         <ImageView
             android:id="@+id/imageView_history"
             android:scaleType="centerCrop"
-            android:src="@drawable/winner"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
         <TextView
