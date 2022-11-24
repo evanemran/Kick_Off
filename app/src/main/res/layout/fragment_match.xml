@@ -18,7 +18,7 @@
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_alignParentTop="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

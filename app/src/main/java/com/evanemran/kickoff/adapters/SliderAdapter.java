@@ -43,8 +43,8 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.Holder> {
         viewHolder.textView_homeName.setText(item.getHome_team().getCountry());
         viewHolder.textView_awayName.setText(item.getAway_team().getCountry());
 
-        viewHolder.home_score.setText(item.getHome_team().getGoals().toString());
-        viewHolder.away_score.setText(item.getAway_team().getGoals().toString());
+        viewHolder.home_score.setText(item.getHome_team().getGoals()==null ? "0" : item.getHome_team().getGoals().toString());
+        viewHolder.away_score.setText(item.getAway_team().getGoals()==null ? "0" : item.getAway_team().getGoals().toString());
 
         SimpleDateFormat dateFormatter = new SimpleDateFormat("EEE, d MMM");
         SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm");
