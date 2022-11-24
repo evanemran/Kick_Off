@@ -1,6 +1,7 @@
 package com.evanemran.kickoff.fragments
 
 import android.os.Bundle
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,10 +9,15 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.evanemran.kickoff.R
 import com.evanemran.kickoff.adapters.TimeLineAdapter
+import com.evanemran.kickoff.models.AwayTeamEvent
+import com.evanemran.kickoff.models.HomeTeamEvent
 import com.evanemran.kickoff.models.TimelineData
 import kotlinx.android.synthetic.main.fragment_timeline.*
 
-class TimeLineFragment : Fragment() {
+class TimeLineFragment(hEvents: List<HomeTeamEvent>, aEvents: List<AwayTeamEvent>) : Fragment() {
+
+    var homeList : List<HomeTeamEvent> = hEvents
+    var awayList : List<AwayTeamEvent> = aEvents
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,11 +35,12 @@ class TimeLineFragment : Fragment() {
 
     private fun showTimeLineDemo() {
         var tList: MutableList<TimelineData> = mutableListOf()
-
-        tList.add(TimelineData("Leonel Messi", "GOAL!", "https://avatarfiles.alphacoders.com/244/244597.jpg", "25'"))
-        tList.add(TimelineData("Xavi", "Yellow Card!", "https://www.wowkeren.com/images/photo/xavi_hernandez.jpg", "31'"))
-        tList.add(TimelineData("Andres Iniesta", "Fowl!", "http://4.bp.blogspot.com/-fKy0_B57V-4/Twm2prxETvI/AAAAAAAAAEE/iaI5MCXOwuA/s1600/Andres+Iniesta6.jpg", "42'"))
-        tList.add(TimelineData("Sergio Busquets", "Substitute!", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVddr1-yt7H4rcbvowMlJ-Llt_EgYYtJpSpOUJNhpUWMbeEGsuhM7NVKExCKcR7aNA2Q0&usqp=CAU", "62'"))
+        homeList.forEach {
+            tList.add(TimelineData(it.player.toString(), it.type_of_event.toString(), "https://avatarfiles.alphacoders.com/244/244597.jpg", it.time.toString(), it.extra_info.toString()))
+        }
+        awayList.forEach {
+            tList.add(TimelineData(it.player.toString(), it.type_of_event.toString(), "https://avatarfiles.alphacoders.com/244/244597.jpg", it.time.toString(), it.extra_info.toString()))
+        }
 
         recycler_timeline.setHasFixedSize(true)
         recycler_timeline.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)

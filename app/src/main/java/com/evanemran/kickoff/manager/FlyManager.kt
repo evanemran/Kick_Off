@@ -11,6 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 class FlyManager(var context: Context) {
     var retrofit = Retrofit.Builder()
@@ -34,6 +35,27 @@ class FlyManager(var context: Context) {
             }
 
             override fun onFailure(call: Call<List<MatchDataFly>>, t: Throwable) {
+                t.message?.let { listener.didError(it) }
+            }
+
+        })
+    }
+
+    fun getMatchData(id: Int, listener: ResponseListener<MatchDataFly>) {
+        val call = retrofit.create(FlyManager.FlyInterface::class.java).getMatchDetails(id)
+        call.enqueue(object : Callback<MatchDataFly> {
+            override fun onResponse(
+                call: Call<MatchDataFly>,
+                response: Response<MatchDataFly>
+            ) {
+                if (!response.isSuccessful){
+                    listener.didError(response.message())
+                    return
+                }
+                response.body()?.let { listener.didFetch(response.message(), it) }
+            }
+
+            override fun onFailure(call: Call<MatchDataFly>, t: Throwable) {
                 t.message?.let { listener.didError(it) }
             }
 
@@ -86,6 +108,11 @@ class FlyManager(var context: Context) {
     interface FlyInterface {
         @GET("matches")
         fun getMatches(): Call<List<MatchDataFly>>
+
+        @GET("matches/{id}")
+        fun getMatchDetails(
+            @Path("id") id: Int
+        ): Call<MatchDataFly>
 
         @GET("matches/today")
         fun getTodayMatches(): Call<List<MatchDataFly>>

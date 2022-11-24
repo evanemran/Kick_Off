@@ -30,10 +30,12 @@ class StatesListAdapter(
         holder.textView_value_one.text = item.value_one.toString()
         holder.textView_value_two.text = item.value_two.toString()
 
-        var max: Int = 100
-        max = if (item.value_one<item.value_two) {
-            item.value_two
-        } else item.value_one
+        var max = 100
+        if (item.value_one<item.value_two) {
+            max = item.value_two
+        } else {
+            max = item.value_one
+        }
 
         holder.progressbar_one.progress = item.value_one
         holder.progressbar_one.max = max

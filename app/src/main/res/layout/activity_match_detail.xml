@@ -64,9 +64,9 @@
                 android:layout_height="wrap_content">
                 <TextView
                     android:id="@+id/match_score"
-                    android:text="1 : 0"
+                    android:text=""
                     android:fontFamily="@font/qwc"
-                    android:textSize="28sp"
+                    android:textSize="30sp"
                     android:textColor="@color/white"
                     android:textAlignment="center"
                     android:padding="4dp"
@@ -74,7 +74,7 @@
                     android:layout_height="wrap_content"/>
                 <TextView
                     android:id="@+id/match_time"
-                    android:text="63'"
+                    android:text=""
                     android:fontFamily="@font/qwc"
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"

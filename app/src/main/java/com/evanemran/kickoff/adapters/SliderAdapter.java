@@ -15,8 +15,10 @@ import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 public class SliderAdapter extends SliderViewAdapter<SliderAdapter.Holder> {
 
@@ -47,19 +49,29 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.Holder> {
         viewHolder.away_score.setText(item.getAway_team().getGoals()==null ? "0" : item.getAway_team().getGoals().toString());
 
         SimpleDateFormat dateFormatter = new SimpleDateFormat("EEE, d MMM");
+        dateFormatter.setTimeZone(TimeZone.getTimeZone("UTC"));
         SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm");
+        timeFormatter.setTimeZone(TimeZone.getTimeZone("UTC"));
         SimpleDateFormat ampmFormatter = new SimpleDateFormat("a");
+        ampmFormatter.setTimeZone(TimeZone.getTimeZone("UTC"));
 
-        Date date = null;
+//        Date date = null;
         try {
-            date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(item.getDatetime());
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+            Date date = formatter.parse(item.getDatetime());
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+
+            dateFormatter.setTimeZone(TimeZone.getDefault());
+            timeFormatter.setTimeZone(TimeZone.getDefault());
+            ampmFormatter.setTimeZone(TimeZone.getDefault());
+
+            viewHolder.match_date.setText(dateFormatter.format(calendar.getTime()));
+            viewHolder.match_time.setText(timeFormatter.format(calendar.getTime()));
+            viewHolder.match_time_ampm.setText(ampmFormatter.format(calendar.getTime()));
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
-        viewHolder.match_date.setText(dateFormatter.format(date));
-        viewHolder.match_time.setText(timeFormatter.format(date));
-        viewHolder.match_time_ampm.setText(ampmFormatter.format(date));
 
         Picasso.get().load("https://countryflagsapi.com/png/" + item.getHome_team().getName()).placeholder(R.drawable.flag_placeholder).into(viewHolder.imageViewHome);
         Picasso.get().load("https://countryflagsapi.com/png/" + item.getAway_team().getName()).placeholder(R.drawable.flag_placeholder).into(viewHolder.imageViewAway);
