@@ -26,10 +26,6 @@
             android:name=".MatchDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".SplashActivity"
-            android:exported="true">
-        </activity>
-        <activity
             android:name=".AuthActivity"
             android:exported="true">
             <intent-filter>

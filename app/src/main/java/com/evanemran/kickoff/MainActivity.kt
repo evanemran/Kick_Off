@@ -152,7 +152,6 @@ class MainActivity : AppCompatActivity() {
         FirebaseAuth.getInstance().signOut()
         val intent = Intent(this, AuthActivity::class.java)
         startActivity(intent)
-        this.finish()
     }
 
     override fun onBackPressed() {

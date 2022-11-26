@@ -91,7 +91,6 @@ class RegisterFragment : Fragment() {
                             Log.d(ContentValues.TAG, "User profile updated.")
                             Toast.makeText(requireContext(), "User profile updated", Toast.LENGTH_SHORT).show()
 //                            requireActivity().finish()
-                            startActivity(Intent(requireContext(), MainActivity::class.java))
                         }
                     }
                     // Sign in success, update UI with the signed-in user's information

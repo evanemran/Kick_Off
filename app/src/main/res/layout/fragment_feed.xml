@@ -6,9 +6,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/gradient_background">
 
+    <com.github.ybq.android.spinkit.SpinKitView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/spin_kit_feed"
+        style="@style/SpinKitView.Large.Circle"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:SpinKit_Color="@color/white" />
+
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/scrollView_teams"
-        android:visibility="visible"
+        android:id="@+id/scrollView_feed"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout

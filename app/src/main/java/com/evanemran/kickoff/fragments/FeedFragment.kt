@@ -23,6 +23,8 @@ import com.evanemran.kickoff.models.PostData
 import com.evanemran.kickoff.models.User
 import com.evanemran.kickoff.sharedprefs.SharedPrefs
 import com.evanemran.kickoff.utils.PostDialog
+import com.github.ybq.android.spinkit.sprite.Sprite
+import com.github.ybq.android.spinkit.style.Circle
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.auth.FirebaseAuth
@@ -30,6 +32,7 @@ import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import id.zelory.compressor.Compressor
+import kotlinx.android.synthetic.main.fragment_blog.*
 import kotlinx.android.synthetic.main.fragment_feed.*
 import java.io.File
 import java.io.IOException
@@ -38,14 +41,14 @@ import java.util.*
 
 class FeedFragment : Fragment() {
 
-    var databaseReference: DatabaseReference? = null
-    var postsReference: DatabaseReference? = null
-    var firebaseDatabase: FirebaseDatabase? = null
-    var userReference: DatabaseReference? = null
-    var storage: FirebaseStorage? = null
+    lateinit var databaseReference: DatabaseReference//
+    lateinit var postsReference: DatabaseReference
+    lateinit var firebaseDatabase: FirebaseDatabase//
+    lateinit var userReference: DatabaseReference
+    lateinit var storage: FirebaseStorage//
     var postDataList: MutableList<PostData> = mutableListOf()
-    var newPost: PostData? = PostData()
-    var storageReference: StorageReference? = null
+    var newPost: PostData = PostData()
+    lateinit var storageReference: StorageReference//
     var user: User = User()
 
     override fun onCreateView(
@@ -59,19 +62,22 @@ class FeedFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        storage = FirebaseStorage.getInstance()
-        storageReference = storage!!.reference
+        val animation: Sprite = Circle()
+        spin_kit_feed.setIndeterminateDrawable(animation)
 
-        user = SharedPrefs(context).user
+        storage = FirebaseStorage.getInstance()
+        storageReference = storage.reference
+
+//        user = SharedPrefs(context).user
 
 
         firebaseDatabase = FirebaseDatabase.getInstance()
-        databaseReference = firebaseDatabase!!.getReference(TABLE_USER)
+        databaseReference = firebaseDatabase.getReference(TABLE_USER)
 
         val uID = FirebaseAuth.getInstance().currentUser!!.uid
-//        if (uID.isNotEmpty()) {
-//            getUserData(uID)
-//        }
+        if (uID.isNotEmpty()) {
+            getUserData(uID)
+        }
 
         getUserData(uID)
 
@@ -94,36 +100,41 @@ class FeedFragment : Fragment() {
             newPost = data
             val format = SimpleDateFormat("EEE, d MMM yyyy HH:mm a")
             val date = Date()
-            newPost!!.posTTime = (format.format(date))
+            newPost.posTTime = (format.format(date))
             if (imageUri != null) {
                 uploadImage(imageUri)
             } else {
-                newPost!!.postedBy = (user)
-                postsReference = firebaseDatabase!!.getReference(TABLE_POST)
-                val key: String = postsReference!!.push().key+""
-                newPost!!.postId = (key.toString())
-                postsReference!!.child(key).setValue(newPost)
+                newPost.postedBy = (user)
+                postsReference = firebaseDatabase.getReference(TABLE_POST)
+                val key: String = postsReference.push().key+""
+                newPost.postId = (key)
+                postsReference.child(key).setValue(newPost)
                 Toast.makeText(requireContext(), "Posted!", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
     private fun getUserData(uID: String) {
-        val dbQuery = databaseReference!!
-            .orderByChild("userId")
-            .equalTo(uID)
-        dbQuery.addListenerForSingleValueEvent(
-            databaseReference!!.addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    for (postSnapshot in dataSnapshot.children) {
-                        user = postSnapshot.getValue(User::class.java)!!
-                        GlobalUser.getInstance().data = (user)
+        try{
+            val dbQuery = databaseReference
+                .orderByChild("userId")
+                .equalTo(uID)
+            dbQuery.addListenerForSingleValueEvent(
+                databaseReference.addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                        for (postSnapshot in dataSnapshot.children) {
+                            user = postSnapshot.getValue(User::class.java)!!
+                            GlobalUser.getInstance().data = (user)
+                        }
                     }
-                }
 
-                override fun onCancelled(databaseError: DatabaseError) {}
-            })
-        )
+                    override fun onCancelled(databaseError: DatabaseError) {}
+                })
+            )
+        }
+        catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     private fun getFileExtension(uri: Uri): String? {
@@ -221,6 +232,8 @@ class FeedFragment : Fragment() {
                 )
                 val adapter = PostsAdapter(requireContext(), postDataList, eventListeners.reactionListener)
                 recycler_home.adapter = adapter
+                spin_kit_feed.visibility = View.GONE
+                scrollView_feed.visibility = View.VISIBLE
             }
 
             override fun onCancelled(databaseError: DatabaseError) {}
