@@ -1,7 +1,5 @@
 package com.evanemran.kickoff
 
-import android.app.PendingIntent.getActivity
-import android.app.ProgressDialog.show
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -11,17 +9,25 @@ import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.evanemran.kickoff.adapters.DrawerAdapter
-import com.evanemran.kickoff.constants.SharedPrefs
 import com.evanemran.kickoff.fragments.*
 import com.evanemran.kickoff.listeners.ClickListener
 import com.evanemran.kickoff.models.DrawerMenu
+import com.evanemran.kickoff.models.MatchDataFly
 import com.evanemran.kickoff.utils.ExitDialog
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.nav_header.*
+
+
+var fixtureList: List<MatchDataFly> = listOf()
+var todayMatch: List<MatchDataFly> = listOf()
 
 class MainActivity : AppCompatActivity() {
 
     var selectedFragment: Fragment = MatchFragment()
+    var user: FirebaseUser? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,10 +39,14 @@ class MainActivity : AppCompatActivity() {
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
 
+        user = FirebaseAuth.getInstance().currentUser
+
         setupNavMenu()
 
         replaceFragment(selectedFragment)
         bottomNavBar.setOnNavigationItemSelectedListener(bottomMenuListener)
+
+
     }
 
 
@@ -49,12 +59,15 @@ class MainActivity : AppCompatActivity() {
         navMenus.add(DrawerMenu.HELP_CENTER)
         navMenus.add(DrawerMenu.SETTINGS)
         navMenus.add(DrawerMenu.TERMS)
-//        navMenus.add(DrawerMenu.LOGOUT)
+        navMenus.add(DrawerMenu.LOGOUT)
 
         recycler_nav.setHasFixedSize(true)
         recycler_nav.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         val drawerAdapter = DrawerAdapter(this, navMenus, drawerClickListener)
         recycler_nav.adapter = drawerAdapter
+
+
+        textView_username.text = "Welcome " +  user!!.displayName.toString()
     }
 
     private val bottomMenuListener =
@@ -72,7 +85,12 @@ class MainActivity : AppCompatActivity() {
                         replaceFragment(TeamFragment())
                     }
                 }
-                R.id.match -> replaceFragment(TeamFragment())
+                R.id.match -> {
+                    if (selectedFragment !is FeedFragment){
+                        selectedFragment = FeedFragment()
+                        replaceFragment(FeedFragment())
+                    }
+                }
                 R.id.stands -> {
                     if (selectedFragment !is ProfileFragment){
                         selectedFragment = ProfileFragment()
@@ -123,11 +141,18 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+//    private fun logout() {
+//        SharedPrefs(this).saveToken("")
+//        startActivity(Intent(this, AuthActivity::class.java)
+//            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+//        this@MainActivity.finish()
+//    }
+
     private fun logout() {
-        SharedPrefs(this).saveToken("")
-        startActivity(Intent(this, AuthActivity::class.java)
-            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-        this@MainActivity.finish()
+        FirebaseAuth.getInstance().signOut()
+        val intent = Intent(this, AuthActivity::class.java)
+        startActivity(intent)
+        this.finish()
     }
 
     override fun onBackPressed() {

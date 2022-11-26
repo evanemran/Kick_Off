@@ -1,12 +1,13 @@
 package com.evanemran.kickoff.models
 
-class User(name: String, mail: String, password: String) {
-    var userId: Int = 0
-    var userName: String = name
-    var userMail: String = mail
-    var userPass: String = password
+class User() {
+    var userId: String = ""
+    var userName: String = ""
+    var userMail: String = ""
+    var userPass: String = ""
     var userPassConfirm: String = ""
     var userPhone: String = ""
+    var userPhoto: String = ""
 
 
     fun validate(): Boolean {

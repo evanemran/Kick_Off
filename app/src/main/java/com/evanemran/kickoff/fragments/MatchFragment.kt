@@ -12,11 +12,13 @@ import com.evanemran.kickoff.MatchDetailActivity
 import com.evanemran.kickoff.R
 import com.evanemran.kickoff.adapters.MatchListAdapter
 import com.evanemran.kickoff.adapters.SliderAdapter
+import com.evanemran.kickoff.fixtureList
 import com.evanemran.kickoff.listeners.ClickListener
 import com.evanemran.kickoff.listeners.ResponseListener
 import com.evanemran.kickoff.manager.FlyManager
 import com.evanemran.kickoff.manager.RequestManager
 import com.evanemran.kickoff.models.*
+import com.evanemran.kickoff.todayMatch
 import com.github.ybq.android.spinkit.sprite.Sprite
 import com.github.ybq.android.spinkit.style.Circle
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType
@@ -43,10 +45,20 @@ class MatchFragment : Fragment() {
         val animation: Sprite = Circle()
         spin_kit_match.setIndeterminateDrawable(animation)
 
-//        manager.getAllMatches(allMatchesResponseListener)
-//        manager.getStandings(groupStandingsListener)
-        flyManager.getAllMatches(allMatchesResponseListener)
-        flyManager.getTodayMatches(todayMatchesListener)
+        if(fixtureList.isEmpty()){
+            flyManager.getAllMatches(allMatchesResponseListener)
+        }
+        else {
+            showFixture(fixtureList)
+        }
+
+
+        if(todayMatch.isEmpty()){
+            flyManager.getTodayMatches(todayMatchesListener)
+        }
+        else {
+            showTodayMatches(todayMatch)
+        }
 
     }
 
@@ -54,13 +66,9 @@ class MatchFragment : Fragment() {
         override fun didFetch(message: String, response: List<MatchDataFly>) {
 //            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
 
-            recycler_matches.setHasFixedSize(true)
-            recycler_matches.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            val adapter: MatchListAdapter = MatchListAdapter(requireContext(), response, matchClickListener)
-            recycler_matches.adapter = adapter
+            fixtureList = response
 
-            spin_kit_match.visibility = View.GONE
-            scrollView.visibility = View.VISIBLE
+            showFixture(fixtureList)
 
         }
         override fun didError(message: String) {
@@ -68,18 +76,23 @@ class MatchFragment : Fragment() {
         }
     }
 
+    private fun showFixture(fixtureList: List<MatchDataFly>) {
+        recycler_matches.setHasFixedSize(true)
+        recycler_matches.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        val adapter: MatchListAdapter = MatchListAdapter(requireContext(), fixtureList, matchClickListener)
+        recycler_matches.adapter = adapter
+
+        spin_kit_match.visibility = View.GONE
+        scrollView.visibility = View.VISIBLE
+
+    }
+
     private val todayMatchesListener: ResponseListener<List<MatchDataFly>> = object : ResponseListener<List<MatchDataFly>>{
         override fun didFetch(message: String, response: List<MatchDataFly>) {
 //            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
 
-
-            var sliderAdapter = SliderAdapter(requireContext(), response)
-            slider.setSliderAdapter(sliderAdapter)
-            slider.setIndicatorAnimation(IndicatorAnimationType.WORM)
-            slider.setSliderTransformAnimation(SliderAnimations.DEPTHTRANSFORMATION)
-            slider.startAutoCycle()
-
-
+            todayMatch = response
+            showTodayMatches(todayMatch)
 
 //            recycler_today_match.setHasFixedSize(true)
 //            recycler_today_match.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
@@ -89,6 +102,14 @@ class MatchFragment : Fragment() {
         override fun didError(message: String) {
             Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun showTodayMatches(todayMatch: List<MatchDataFly>) {
+        var sliderAdapter = SliderAdapter(requireContext(), todayMatch)
+        slider.setSliderAdapter(sliderAdapter)
+        slider.setIndicatorAnimation(IndicatorAnimationType.WORM)
+        slider.setSliderTransformAnimation(SliderAnimations.DEPTHTRANSFORMATION)
+        slider.startAutoCycle()
     }
 
     private val teamClickListener: ClickListener<TeamInfo> = object : ClickListener<TeamInfo> {

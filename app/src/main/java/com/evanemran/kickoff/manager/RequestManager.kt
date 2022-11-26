@@ -1,7 +1,6 @@
 package com.evanemran.kickoff.manager
 
 import android.content.Context
-import com.evanemran.kickoff.constants.SharedPrefs
 import com.evanemran.kickoff.listeners.ResponseListener
 import com.evanemran.kickoff.models.*
 import retrofit2.Call
@@ -17,7 +16,7 @@ class RequestManager(var context: Context) {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    var gToken: String = "Bearer " + SharedPrefs(context).getToken()
+//    var gToken: String = "Bearer " + SharedPrefs(context).getToken()
 
     fun register(listener: ResponseListener<ResponseWrapper<RegisterResponse>>, body: RegisterRequest) {
         val call = retrofit.create(ApiInterface::class.java).register(body)
@@ -61,26 +60,26 @@ class RequestManager(var context: Context) {
         })
     }
 
-    fun getAllTeams(listener: ResponseListener<ResponseWrapper<List<TeamInfo>>>) {
-        val call = retrofit.create(ApiInterface::class.java).getAllTeamInfo(gToken)
-        call.enqueue(object : Callback<ResponseWrapper<List<TeamInfo>>> {
-            override fun onResponse(
-                call: Call<ResponseWrapper<List<TeamInfo>>>,
-                response: Response<ResponseWrapper<List<TeamInfo>>>
-            ) {
-                if (!response.isSuccessful){
-                    listener.didError(response.message())
-                    return
-                }
-                response.body()?.let { listener.didFetch(response.message(), it) }
-            }
-
-            override fun onFailure(call: Call<ResponseWrapper<List<TeamInfo>>>, t: Throwable) {
-                t.message?.let { listener.didError(it) }
-            }
-
-        })
-    }
+//    fun getAllTeams(listener: ResponseListener<ResponseWrapper<List<TeamInfo>>>) {
+//        val call = retrofit.create(ApiInterface::class.java).getAllTeamInfo(gToken)
+//        call.enqueue(object : Callback<ResponseWrapper<List<TeamInfo>>> {
+//            override fun onResponse(
+//                call: Call<ResponseWrapper<List<TeamInfo>>>,
+//                response: Response<ResponseWrapper<List<TeamInfo>>>
+//            ) {
+//                if (!response.isSuccessful){
+//                    listener.didError(response.message())
+//                    return
+//                }
+//                response.body()?.let { listener.didFetch(response.message(), it) }
+//            }
+//
+//            override fun onFailure(call: Call<ResponseWrapper<List<TeamInfo>>>, t: Throwable) {
+//                t.message?.let { listener.didError(it) }
+//            }
+//
+//        })
+//    }
 
     fun getSpecificTeam(listener: ResponseListener<ResponseWrapper<TeamInfo>>, teamId: String) {
         val call = retrofit.create(ApiInterface::class.java).getTeamInfo(teamId)
@@ -103,47 +102,47 @@ class RequestManager(var context: Context) {
         })
     }
 
-    fun getStandings(listener: ResponseListener<ResponseWrapper<List<StandingsResponse>>>) {
-        val call = retrofit.create(ApiInterface::class.java).getGroupStandings(gToken)
-        call.enqueue(object : Callback<ResponseWrapper<List<StandingsResponse>>> {
-            override fun onResponse(
-                call: Call<ResponseWrapper<List<StandingsResponse>>>,
-                response: Response<ResponseWrapper<List<StandingsResponse>>>
-            ) {
-                if (!response.isSuccessful){
-                    listener.didError(response.message())
-                    return
-                }
-                response.body()?.let { listener.didFetch(response.message(), it) }
-            }
+//    fun getStandings(listener: ResponseListener<ResponseWrapper<List<StandingsResponse>>>) {
+//        val call = retrofit.create(ApiInterface::class.java).getGroupStandings(gToken)
+//        call.enqueue(object : Callback<ResponseWrapper<List<StandingsResponse>>> {
+//            override fun onResponse(
+//                call: Call<ResponseWrapper<List<StandingsResponse>>>,
+//                response: Response<ResponseWrapper<List<StandingsResponse>>>
+//            ) {
+//                if (!response.isSuccessful){
+//                    listener.didError(response.message())
+//                    return
+//                }
+//                response.body()?.let { listener.didFetch(response.message(), it) }
+//            }
+//
+//            override fun onFailure(call: Call<ResponseWrapper<List<StandingsResponse>>>, t: Throwable) {
+//                t.message?.let { listener.didError(it) }
+//            }
+//
+//        })
+//    }
 
-            override fun onFailure(call: Call<ResponseWrapper<List<StandingsResponse>>>, t: Throwable) {
-                t.message?.let { listener.didError(it) }
-            }
-
-        })
-    }
-
-    fun getAllMatches(listener: ResponseListener<ResponseWrapper<List<MatchData>>>) {
-        val call = retrofit.create(ApiInterface::class.java).getAllMatchInfo(gToken)
-        call.enqueue(object : Callback<ResponseWrapper<List<MatchData>>> {
-            override fun onResponse(
-                call: Call<ResponseWrapper<List<MatchData>>>,
-                response: Response<ResponseWrapper<List<MatchData>>>
-            ) {
-                if (!response.isSuccessful){
-                    listener.didError(response.message())
-                    return
-                }
-                response.body()?.let { listener.didFetch(response.message(), it) }
-            }
-
-            override fun onFailure(call: Call<ResponseWrapper<List<MatchData>>>, t: Throwable) {
-                t.message?.let { listener.didError(it) }
-            }
-
-        })
-    }
+//    fun getAllMatches(listener: ResponseListener<ResponseWrapper<List<MatchData>>>) {
+//        val call = retrofit.create(ApiInterface::class.java).getAllMatchInfo(gToken)
+//        call.enqueue(object : Callback<ResponseWrapper<List<MatchData>>> {
+//            override fun onResponse(
+//                call: Call<ResponseWrapper<List<MatchData>>>,
+//                response: Response<ResponseWrapper<List<MatchData>>>
+//            ) {
+//                if (!response.isSuccessful){
+//                    listener.didError(response.message())
+//                    return
+//                }
+//                response.body()?.let { listener.didFetch(response.message(), it) }
+//            }
+//
+//            override fun onFailure(call: Call<ResponseWrapper<List<MatchData>>>, t: Throwable) {
+//                t.message?.let { listener.didError(it) }
+//            }
+//
+//        })
+//    }
 
 
     interface ApiInterface {
