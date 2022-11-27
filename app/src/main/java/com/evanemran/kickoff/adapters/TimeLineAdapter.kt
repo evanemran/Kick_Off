@@ -42,7 +42,7 @@ class TimeLineAdapter(
             holder.textView_extra.visibility = View.GONE
         }
 
-        Picasso.get().load(item.image).into(holder.imageView_timeline)
+//        Picasso.get().load(item.image).into(holder.imageView_timeline)
     }
 
     override fun getItemCount(): Int {
