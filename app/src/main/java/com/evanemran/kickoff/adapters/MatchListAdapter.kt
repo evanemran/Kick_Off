@@ -1,20 +1,26 @@
 package com.evanemran.kickoff.adapters
 
 import android.content.Context
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.evanemran.kickoff.R
 import com.evanemran.kickoff.listeners.ClickListener
-import com.evanemran.kickoff.models.MatchData
 import com.evanemran.kickoff.models.MatchDataFly
-import com.evanemran.kickoff.models.TeamInfo
 import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 class MatchListAdapter(
     val context: Context,
@@ -26,6 +32,7 @@ class MatchListAdapter(
         return MatchListViewHolder(LayoutInflater.from(context).inflate(R.layout.list_matches_two, parent, false))
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: MatchListViewHolder, position: Int) {
         val item = list[position]
 
@@ -35,21 +42,54 @@ class MatchListAdapter(
         holder.home_score.text = item.home_team?.goals.toString()
         holder.away_score.text = item.away_team?.goals.toString()
 
-        val dateFormatter = SimpleDateFormat("EEE, d MMM")
-        val timeFormatter = SimpleDateFormat("hh:mm")
-        val ampmFormatter = SimpleDateFormat("a")
-        val date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(item.datetime)
+        val dFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH)
+        val dateF = DateTimeFormatter.ofPattern("EEE, d MMM", Locale.ENGLISH)
+        val timeF = DateTimeFormatter.ofPattern("hh:mm", Locale.ENGLISH)
+        val ampmF = DateTimeFormatter.ofPattern("a", Locale.ENGLISH)
+        val formattedDate: String = LocalDateTime.parse(item.datetime, dFormatter)
+            .atOffset(ZoneOffset.UTC)
+            .atZoneSameInstant(ZoneId.systemDefault())
+            .format(dateF)
 
-        holder.match_date.text = dateFormatter.format(date)
-        holder.match_time.text = timeFormatter.format(date)
-        holder.match_time_ampm.text = ampmFormatter.format(date)
+        val formattedTime: String = LocalDateTime.parse(item.datetime, dFormatter)
+            .atOffset(ZoneOffset.UTC)
+            .atZoneSameInstant(ZoneId.systemDefault())
+            .format(timeF)
+
+        val formattedAmPm: String = LocalDateTime.parse(item.datetime, dFormatter)
+            .atOffset(ZoneOffset.UTC)
+            .atZoneSameInstant(ZoneId.systemDefault())
+            .format(ampmF)
+
+        holder.match_date.text = formattedDate
+        holder.match_time.text = formattedTime
+        holder.match_time_ampm.text = formattedAmPm
 
         Picasso.get().load("https://countryflagsapi.com/png/" + item.home_team?.name).placeholder(R.drawable.flag_placeholder).into(holder.imageView_homeImage)
         Picasso.get().load("https://countryflagsapi.com/png/" + item.away_team?.name).placeholder(R.drawable.flag_placeholder).into(holder.imageView_awayImage)
 
         holder.match_container.setOnClickListener {
-            listener.onClicked(item)
+            if(isFutureDate(item.datetime!!)) {
+                Toast.makeText(context, "Match not started!", Toast.LENGTH_SHORT).show()
+            }
+            else{
+                listener.onClicked(item)
+            }
         }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun isFutureDate(dateStr: String): Boolean {
+        val dateFormatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH)
+        val dFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH)
+
+        val formattedDate: String = LocalDateTime.parse(dateStr, dFormatter)
+            .atOffset(ZoneOffset.UTC)
+            .atZoneSameInstant(ZoneId.systemDefault())
+            .format(dFormatter)
+
+        val matchDate = dateFormatter.parse(formattedDate)
+        return Date().before(matchDate)
     }
 
     override fun getItemCount(): Int {

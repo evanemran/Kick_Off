@@ -21,7 +21,6 @@ import com.evanemran.kickoff.listeners.EventListeners
 import com.evanemran.kickoff.listeners.PostListener
 import com.evanemran.kickoff.models.PostData
 import com.evanemran.kickoff.models.User
-import com.evanemran.kickoff.sharedprefs.SharedPrefs
 import com.evanemran.kickoff.utils.PostDialog
 import com.github.ybq.android.spinkit.sprite.Sprite
 import com.github.ybq.android.spinkit.style.Circle
@@ -232,6 +231,7 @@ class FeedFragment : Fragment() {
                     false
                 )
                 val adapter = PostsAdapter(requireContext(), postDataList, eventListeners.reactionListener)
+                adapter.setHasStableIds(true)
                 recycler_home.adapter = adapter
                 spin_kit_feed.visibility = View.GONE
                 scrollView_feed.visibility = View.VISIBLE
