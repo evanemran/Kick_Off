@@ -1,6 +1,8 @@
 package com.evanemran.kickoff.fragments
 
+import android.app.Activity
 import android.content.ContentValues
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.evanemran.kickoff.AuthActivity
 import com.evanemran.kickoff.MainActivity
 import com.evanemran.kickoff.R
 import com.evanemran.kickoff.database.FirebaseDbConstants
@@ -39,6 +42,10 @@ class RegisterFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_register, container, false)
 
     }
+    lateinit var activity:Activity;
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -48,17 +55,20 @@ class RegisterFragment : Fragment() {
 
         var manager: RequestManager = RequestManager(requireContext())
 
-        button_register.setOnClickListener {
+        /*button_register.setOnClickListener {
             var user = User()
-            user.userName = editText_name.text.toString()
-            user.userMail = editText_mail.text.toString()
-            user.userPass = editText_password.text.toString()
-            user.userPassConfirm = editText_confirm_password.text.toString()
-
+//            user.userName = editText_name.text.toString()
+//            user.userMail = editText_mail.text.toString()
+//            user.userPass = editText_password.text.toString()
+//            user.userPassConfirm = editText_confirm_password.text.toString()
+            user.userName = "dsadsa"
+            user.userMail ="EVAn48@gmail.com"
+            user.userPass = "123456"
+            user.userPassConfirm = "123456"
             if (user.validate()) {
                 authenticate(user.userName, user.userMail, user.userPass)
             }
-        }
+        }*/
 
 //        button_register.setOnClickListener {
 //            var registerBody = RegisterRequest(editText_name.text.toString() ,editText_mail.text.toString(), editText_password.text.toString(), editText_confirm_password.text.toString())
@@ -74,8 +84,9 @@ class RegisterFragment : Fragment() {
 
     private fun authenticate(userName: String, userMail: String, userPass: String) {
         mAuth!!.createUserWithEmailAndPassword(userMail, userPass)
-            .addOnCompleteListener {
-                    task ->
+            .addOnCompleteListener(
+                requireActivity()
+            ) { task ->
                 if (task.isSuccessful) {
                     task.result.user?.let { createNewUser(it, userName) }
                     Toast.makeText(requireContext(), "Authenticated", Toast.LENGTH_SHORT).show()
@@ -87,7 +98,7 @@ class RegisterFragment : Fragment() {
                             val gUser: User = User()
                             gUser.userName = userName
                             gUser.userMail = userMail
-                            SharedPrefs(requireContext()).saveUser(gUser)
+//                            SharedPrefs(requireContext()).saveUser(gUser)
                             Log.d(ContentValues.TAG, "User profile updated.")
                             Toast.makeText(requireContext(), "User profile updated", Toast.LENGTH_SHORT).show()
 //                            requireActivity().finish()

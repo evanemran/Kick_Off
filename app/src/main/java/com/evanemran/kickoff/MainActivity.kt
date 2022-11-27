@@ -9,14 +9,18 @@ import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.evanemran.kickoff.adapters.DrawerAdapter
+import com.evanemran.kickoff.database.FirebaseDbConstants
 import com.evanemran.kickoff.fragments.*
+import com.evanemran.kickoff.globals.GlobalUser
 import com.evanemran.kickoff.listeners.ClickListener
 import com.evanemran.kickoff.models.DrawerMenu
 import com.evanemran.kickoff.models.MatchDataFly
+import com.evanemran.kickoff.models.User
 import com.evanemran.kickoff.utils.ExitDialog
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.nav_header.*
 
@@ -27,11 +31,14 @@ var todayMatch: List<MatchDataFly> = listOf()
 class MainActivity : AppCompatActivity() {
 
     var selectedFragment: Fragment = MatchFragment()
-    var user: FirebaseUser? = null
+    var user: User = User()
+    lateinit var databaseReference: DatabaseReference//
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        databaseReference = FirebaseDatabase.getInstance().getReference(FirebaseDbConstants.TABLE_USER)
 
         val toggle = ActionBarDrawerToggle(
             this, drawer_layout, toolbar, R.string.open_nav_drawer, R.string.close_nav_drawer
@@ -39,14 +46,43 @@ class MainActivity : AppCompatActivity() {
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
 
-        user = FirebaseAuth.getInstance().currentUser
+        val user = FirebaseAuth.getInstance().currentUser
+
+        val uID = FirebaseAuth.getInstance().currentUser!!.uid
+//        if (uID.isNotEmpty()) {
+//            getUserData(uID)
+//        }
+        getUserData(uID)
 
         setupNavMenu()
 
-        replaceFragment(selectedFragment)
+//        replaceFragment(selectedFragment)
         bottomNavBar.setOnNavigationItemSelectedListener(bottomMenuListener)
 
 
+    }
+
+    private fun getUserData(uID: String) {
+        try{
+            val dbQuery = databaseReference
+                .orderByChild("userId")
+                .equalTo(uID)
+            dbQuery.addListenerForSingleValueEvent(
+                databaseReference.addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                        for (postSnapshot in dataSnapshot.children) {
+                            user = postSnapshot.getValue(User::class.java)!!
+                            GlobalUser.getInstance().data = (user)
+                        }
+                    }
+
+                    override fun onCancelled(databaseError: DatabaseError) {}
+                })
+            )
+        }
+        catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
 
@@ -67,7 +103,7 @@ class MainActivity : AppCompatActivity() {
         recycler_nav.adapter = drawerAdapter
 
 
-        textView_username.text = "Welcome " +  user!!.displayName.toString()
+        textView_username.text = "Welcome " +  user.userName
     }
 
     private val bottomMenuListener =
@@ -150,8 +186,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun logout() {
         FirebaseAuth.getInstance().signOut()
-        val intent = Intent(this, AuthActivity::class.java)
+        val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
+        this.finish()
     }
 
     override fun onBackPressed() {

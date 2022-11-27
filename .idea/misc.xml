@@ -41,6 +41,13 @@
         <entry key="..\:/Android_Projects/KickOff/app/src/main/res/layout/list_worldcups.xml" value="0.1921875" />
         <entry key="..\:/Android_Projects/KickOff/app/src/main/res/layout/nav_header.xml" value="0.1921875" />
         <entry key="..\:/Android_Projects/KickOff/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1921875" />
+        <entry key="..\:/Android_Projects/Kick_Off/app/src/main/res/drawable/rounded_button_black.xml" value="0.1415" />
+        <entry key="..\:/Android_Projects/Kick_Off/app/src/main/res/layout/activity_auth.xml" value="0.1921875" />
+        <entry key="..\:/Android_Projects/Kick_Off/app/src/main/res/layout/activity_login.xml" value="0.25" />
+        <entry key="..\:/Android_Projects/Kick_Off/app/src/main/res/layout/activity_register.xml" value="0.18" />
+        <entry key="..\:/Android_Projects/Kick_Off/app/src/main/res/layout/fragment_login.xml" value="0.1921875" />
+        <entry key="..\:/Android_Projects/Kick_Off/app/src/main/res/layout/fragment_match.xml" value="0.1921875" />
+        <entry key="..\:/Android_Projects/Kick_Off/app/src/main/res/layout/fragment_register.xml" value="0.1921875" />
       </map>
     </option>
   </component>
