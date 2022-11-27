@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -105,30 +106,36 @@ public class PostDialog extends DialogFragment {
         // if request code is PICK_IMAGE_REQUEST and
         // resultCode is RESULT_OK
         // then set image in the image view
-        if (requestCode == 100
-                && resultCode == RESULT_OK
-                && data != null
-                && data.getData() != null) {
+        try {
+            if (requestCode == 100
+                    && resultCode == RESULT_OK
+                    && data != null
+                    && data.getData() != null) {
 
-            // Get the Uri of data
-            filePath = data.getData();
-            try {
+                // Get the Uri of data
+                filePath = data.getData();
+                try {
 
-                // Setting image on image view using Bitmap
-                Bitmap bitmap = MediaStore
-                        .Images
-                        .Media
-                        .getBitmap(
-                                getContext().getContentResolver(),
-                                filePath);
-                imageView_selected.setVisibility(View.VISIBLE);
-                imageView_selected.setImageBitmap(bitmap);
+                    // Setting image on image view using Bitmap
+                    Bitmap bitmap = MediaStore
+                            .Images
+                            .Media
+                            .getBitmap(
+                                    getContext().getContentResolver(),
+                                    filePath);
+                    imageView_selected.setVisibility(View.VISIBLE);
+                    imageView_selected.setImageBitmap(bitmap);
+                }
+
+                catch (IOException e) {
+                    // Log the exception
+                    e.printStackTrace();
+                }
             }
-
-            catch (IOException e) {
-                // Log the exception
-                e.printStackTrace();
-            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(getContext(), "File not supported!", Toast.LENGTH_SHORT).show();
         }
     }
 

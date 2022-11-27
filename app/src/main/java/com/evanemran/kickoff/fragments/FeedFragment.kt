@@ -150,6 +150,7 @@ class FeedFragment : Fragment() {
             val progressDialog = ProgressDialog(requireContext())
             progressDialog.setTitle("Uploading...")
             progressDialog.show()
+            progressDialog.setCanceledOnTouchOutside(false)
 
             // Defining the child of storageReference
             val ref: StorageReference = storageReference!!
