@@ -45,7 +45,10 @@ class MatchFragment : Fragment() {
         val animation: Sprite = Circle()
         spin_kit_match.setIndeterminateDrawable(animation)
 
-        if(fixtureList.isEmpty()){
+        flyManager.getAllMatches(allMatchesResponseListener)
+        flyManager.getTodayMatches(todayMatchesListener)
+
+        /*if(fixtureList.isEmpty()){
             flyManager.getAllMatches(allMatchesResponseListener)
         }
         else {
@@ -58,7 +61,7 @@ class MatchFragment : Fragment() {
         }
         else {
             showTodayMatches(todayMatch)
-        }
+        }*/
 
     }
 

@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
 
         setupNavMenu()
 
-//        replaceFragment(selectedFragment)
+        replaceFragment(selectedFragment)
         bottomNavBar.setOnNavigationItemSelectedListener(bottomMenuListener)
 
 
@@ -191,10 +191,10 @@ class MainActivity : AppCompatActivity() {
         this.finish()
     }
 
-    override fun onBackPressed() {
-        val dialog: ExitDialog = ExitDialog()
-        dialog.show(supportFragmentManager, "Category")
-    }
+//    override fun onBackPressed() {
+//        val dialog: ExitDialog = ExitDialog()
+//        dialog.show(supportFragmentManager, "Category")
+//    }
 
 
 }
